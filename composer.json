@@ -1,0 +1,12 @@
+{
+    "name": "boardmeister/shared",
+    "description": "Shared code between Boardmeister repositories",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Boardmeister\\Shared\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
