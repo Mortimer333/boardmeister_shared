@@ -11,13 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ExpansionService
 {
-    public function __construct(
-        protected EntityManagerInterface $em,
-        protected ImageService $imageService,
-        protected TagService $tagService,
-    ) {
-    }
-
     public function serialize(Expansion $expansion): array
     {
         $tagsSerialized = [];
