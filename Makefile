@@ -5,6 +5,8 @@ help:
 	@echo "cs-fix                      Fix coding standards"
 	@echo "phpmd                       Run PHP Mess Detector"
 	@echo "psalm                       Run Psalm analyse"
+	@echo "analysis                    Run cs-check + phpmd + psalm"
+	@echo "before-push                 Run before pushing changes to origin"
 
 cs-fix:
 	@echo "Fix coding standards"
