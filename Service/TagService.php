@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use App\Entity\Tag;
+use Shared\Entity\Tag;
 
 class TagService
 {

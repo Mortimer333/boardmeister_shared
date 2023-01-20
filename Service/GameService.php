@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use App\Entity\Game;
+use Shared\Entity\Game;
 
 class GameService
 {

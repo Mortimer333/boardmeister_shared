@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service\Game;
 
-use App\Entity\Game\Expansion;
+use Shared\Entity\Game\Expansion;
 
 class ExpansionService
 {

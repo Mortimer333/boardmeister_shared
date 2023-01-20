@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use App\Entity\Image;
+use Shared\Entity\Image;
 
 class ImageService
 {
