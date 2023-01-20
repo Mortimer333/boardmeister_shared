@@ -23,11 +23,6 @@ class HttpUtilService
     protected static ?int $offset = null;
     protected static ?int $total = null;
 
-    public function __construct(
-        protected BinUtilService $binUtilService,
-    ) {
-    }
-
     public static function setTotal(?int $total): void
     {
         self::$total = $total;

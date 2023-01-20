@@ -5,16 +5,9 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use App\Entity\Image;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ImageService
 {
-    public function __construct(
-        protected EntityManagerInterface $em,
-        protected TagService $tagService,
-    ) {
-    }
-
     public function get(int $imageId): Image
     {
         $image = $this->em->getRepository(Image::class)->find($imageId);

@@ -5,15 +5,9 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use App\Entity\Tag;
-use Doctrine\ORM\EntityManagerInterface;
 
 class TagService
 {
-    public function __construct(
-        protected EntityManagerInterface $em,
-    ) {
-    }
-
     public function get(int $tagId): Tag
     {
         $tag = $this->em->getRepository(Tag::class)->find($tagId);

@@ -5,19 +5,9 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use App\Entity\Game;
-use Shared\Service\Game\ExpansionService;
-use Doctrine\ORM\EntityManagerInterface;
 
 class GameService
 {
-    public function __construct(
-        protected EntityManagerInterface $em,
-        protected ExpansionService $expansionService,
-        protected TagService $tagService,
-        protected ImageService $imageService,
-    ) {
-    }
-
     /**
      * @return array<Game>
      */

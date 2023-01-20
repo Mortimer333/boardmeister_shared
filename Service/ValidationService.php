@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use Shared\Service\Util\HttpUtilService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidationService
 {
-    public function __construct(
-        protected HttpUtilService $httpUtilService,
-        protected ValidatorInterface $validator,
-    ) {
-    }
-
     /**
      * @param array<mixed>                 $body
      * @param Constraint|array<Constraint> $constraint
