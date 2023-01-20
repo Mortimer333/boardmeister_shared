@@ -2,7 +2,7 @@
 
 namespace Shared\Entity;
 
-use App\Repository\TagRepository;
+use Shared\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]

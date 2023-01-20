@@ -3,7 +3,7 @@
 namespace Shared\Entity;
 
 use Shared\Contract\TagsUtilizingEntityInterface;
-use App\Repository\ImageRepository;
+use Shared\Repository\ImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
