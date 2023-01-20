@@ -2,11 +2,11 @@
 
 namespace Shared\Repository;
 
-use Shared\Service\ValidationService;
-use Shared\Trait\PaginationTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Tag;
+use Shared\Service\ValidationService;
+use Shared\Trait\PaginationTrait;
 
 /**
  * @extends ServiceEntityRepository<Tag>

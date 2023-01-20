@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Shared\Model\Definition\Game;
 
-use Shared\Model\Definition\ImageEntityDTO;
-use Shared\Model\Definition\TagEntityDTO;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
+use Shared\Model\Definition\ImageEntityDTO;
+use Shared\Model\Definition\TagEntityDTO;
 
 class ExpansionDTO
 {

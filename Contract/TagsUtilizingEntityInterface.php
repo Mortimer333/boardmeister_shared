@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Shared\Contract;
 
-use Shared\Entity\Tag;
 use Doctrine\Common\Collections\Collection;
+use Shared\Entity\Tag;
 
 interface TagsUtilizingEntityInterface
 {
     public function getTags(): Collection;
+
     public function addTag(Tag $tag): self;
+
     public function removeTag(Tag $tag): self;
 }

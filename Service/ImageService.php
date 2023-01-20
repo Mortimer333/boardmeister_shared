@@ -29,7 +29,7 @@ class ImageService
     }
 
     /**
-     * @return array<string, int|string|null|array<int, array<string, int|string|null>>>
+     * @return array<string, int|string|array<int, array<string, int|string|null>>|null>
      */
     public function serialize(Image $image): array
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidationService
 {

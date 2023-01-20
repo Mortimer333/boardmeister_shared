@@ -2,15 +2,15 @@
 
 namespace Shared\Entity\Game;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\ImagesUtilizingEntityInterface;
 use Shared\Contract\TagsUtilizingEntityInterface;
 use Shared\Entity\Game;
 use Shared\Entity\Image;
 use Shared\Entity\Tag;
 use Shared\Repository\Game\ExpansionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExpansionRepository::class)]
 class Expansion implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterface

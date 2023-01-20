@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shared\Trait;
 
+use Doctrine\ORM\QueryBuilder;
 use Shared\Constraint\PaginationConstraint;
 use Shared\Service\Util\HttpUtilService;
-use Doctrine\ORM\QueryBuilder;
 
 trait PaginationTrait
 {

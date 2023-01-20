@@ -2,10 +2,10 @@
 
 namespace Shared\Model\Response\Game;
 
-use Shared\Model\Definition\Game\GameEntityDTO;
-use Shared\Model\Response\SuccessDTO;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
+use Shared\Model\Definition\Game\GameEntityDTO;
+use Shared\Model\Response\SuccessDTO;
 
 class GameListResponseDTO extends SuccessDTO
 {

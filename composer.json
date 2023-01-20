@@ -1,0 +1,14 @@
+{
+    "name": "boardmeister/shared",
+    "description": "Shared code between Boardmeister services",
+    "type": "library",
+    "minimum-stability": "dev",
+    "require": {
+        "friendsofphp/php-cs-fixer": "dev-master",
+        "phpmd/phpmd": "dev-master",
+        "vimeo/psalm": "^5.0@dev"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    }
+}

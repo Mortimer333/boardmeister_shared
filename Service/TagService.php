@@ -34,8 +34,8 @@ class TagService
     public function serialize(Tag $tag): array
     {
         return [
-            "id" => $tag->getId(),
-            "name" => $tag->getName(),
+            'id' => $tag->getId(),
+            'name' => $tag->getName(),
         ];
     }
 }

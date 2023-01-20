@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Shared\Model\Parameter;
 
-use Shared\Model\Parameter\Pagination\SortItemDTO;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
+use Shared\Model\Parameter\Pagination\SortItemDTO;
 
 class PaginationDTO
 {
