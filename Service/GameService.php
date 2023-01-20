@@ -6,9 +6,7 @@ namespace Shared\Service;
 
 use App\Entity\Game;
 use App\Entity\Image;
-use App\Service\TagService;
-use App\Service\ImageService;
-use App\Service\Game\ExpansionService;
+use Shared\Service\Game\ExpansionService;
 use Doctrine\ORM\EntityManagerInterface;
 
 class GameService
