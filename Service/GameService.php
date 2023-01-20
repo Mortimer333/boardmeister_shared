@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Service;
+namespace Shared\Service;
 
-use App\Shared\Entity\Game;
-use App\Shared\Entity\Image;
+use App\Entity\Game;
+use App\Entity\Image;
+use App\Service\TagService;
+use App\Service\ImageService;
 use App\Service\Game\ExpansionService;
 use Doctrine\ORM\EntityManagerInterface;
 
