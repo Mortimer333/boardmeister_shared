@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Definition;
+namespace App\Shared\Model\Definition;
 
 use OpenApi\Attributes as SWG;
 

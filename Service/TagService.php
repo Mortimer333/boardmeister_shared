@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Service;
 
 use App\Contract\TagsUtilizingEntityInterface;
-use App\Entity\Tag;
+use App\Shared\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 

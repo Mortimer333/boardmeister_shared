@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Shared\Entity;
 
 use App\Contract\ImagesUtilizingEntityInterface;
 use App\Contract\TagsUtilizingEntityInterface;
-use App\Entity\Game\Expansion;
-use App\Repository\GameRepository;
+use App\Shared\Entity\Game\Expansion;
+use App\Shared\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

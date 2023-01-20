@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model\Response\Game\Expansion;
+namespace App\Shared\Model\Response\Game\Expansion;
 
-use App\Model\Definition\Game\ExpansionEntityDTO;
-use App\Model\Definition\Game\GameEntityDTO;
-use App\Model\Response\SuccessDTO;
+use App\Shared\Model\Definition\Game\ExpansionEntityDTO;
+use App\Shared\Model\Definition\Game\GameEntityDTO;
+use App\Shared\Model\Response\SuccessDTO;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 

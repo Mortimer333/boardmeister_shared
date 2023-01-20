@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Service;
 
 use App\Contract\ImagesUtilizingEntityInterface;
-use App\Entity\Image;
+use App\Shared\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ImageService

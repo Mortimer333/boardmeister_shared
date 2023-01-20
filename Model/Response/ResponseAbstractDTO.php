@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Response;
+namespace App\Shared\Model\Response;
 
 use OpenApi\Attributes as SWG;
 

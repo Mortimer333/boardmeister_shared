@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\Game;
+namespace App\Shared\Repository\Game;
 
-use App\Entity\Game\Expansion;
+use App\Shared\Entity\Game\Expansion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Service;
 
-use App\Entity\Game;
-use App\Entity\Image;
+use App\Shared\Entity\Game;
+use App\Shared\Entity\Image;
 use App\Service\Game\ExpansionService;
 use Doctrine\ORM\EntityManagerInterface;
 

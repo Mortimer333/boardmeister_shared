@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Shared\Entity;
 
-use App\Entity\Game\Expansion;
+use App\Shared\Entity\Game\Expansion;
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
 

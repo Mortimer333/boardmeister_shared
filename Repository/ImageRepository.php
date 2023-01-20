@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Shared\Repository;
 
-use App\Entity\Image;
+use App\Shared\Entity\Image;
 use App\Service\ValidationService;
 use App\Trait\PaginationTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
