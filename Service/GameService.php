@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use App\Entity\Game;
-use App\Entity\Image;
 use Shared\Service\Game\ExpansionService;
 use Doctrine\ORM\EntityManagerInterface;
 

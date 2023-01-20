@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use App\Contract\TagsUtilizingEntityInterface;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 
 class TagService
 {

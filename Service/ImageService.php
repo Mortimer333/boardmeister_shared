@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use App\Contract\ImagesUtilizingEntityInterface;
 use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 
