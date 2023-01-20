@@ -5,6 +5,8 @@ namespace Shared\Repository\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Game\Expansion;
+use Shared\Service\ValidationService;
+use Shared\Trait\PaginationTrait;
 
 /**
  * @extends ServiceEntityRepository<Expansion>
@@ -16,8 +18,12 @@ use Shared\Entity\Game\Expansion;
  */
 class ExpansionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    use PaginationTrait;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        protected ValidationService $validationService,
+    ) {
         parent::__construct($registry, Expansion::class);
     }
 

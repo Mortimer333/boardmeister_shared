@@ -40,10 +40,12 @@ class ExpansionService
     }
 
     /**
+     * @param array<int|array<string>> $pagination
+     *
      * @return array<Expansion>
      */
-    public function list(): array
+    public function list(array $pagination): array
     {
-        return $this->em->getRepository(Expansion::class)->findAll();
+        return $this->em->getRepository(Expansion::class)->list($pagination);
     }
 }
