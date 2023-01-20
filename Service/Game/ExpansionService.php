@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Shared\Service\Game;
 
 use App\Entity\Game\Expansion;
-use Shared\Service\ImageService;
-use Shared\Service\TagService;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ExpansionService
 {
