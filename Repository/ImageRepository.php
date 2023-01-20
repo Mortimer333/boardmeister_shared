@@ -3,7 +3,7 @@
 namespace Shared\Repository;
 
 use Shared\Service\ValidationService;
-use App\Trait\PaginationTrait;
+use Shared\Trait\PaginationTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Image;
