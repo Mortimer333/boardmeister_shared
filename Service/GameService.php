@@ -42,8 +42,8 @@ class GameService
     public function serialize(Game $game, bool $appendExpansions = false): array
     {
         $tagsSerialized = [];
-        foreach ($game->getTags() as $tag) {
-            $tagsSerialized[] = $this->tagService->serialize($tag);
+        foreach ($game->getTagValues() as $tag) {
+            $tagsSerialized[] = $this->tagValueService->serialize($tag);
         }
 
         $imagesSerialized = [];
@@ -56,7 +56,7 @@ class GameService
             'code' => $game->getCode(),
             'name' => $game->getName(),
             'alias' => $game->getAlias(),
-            'tags' => $tagsSerialized,
+            'tagValues' => $tagsSerialized,
             'images' => $imagesSerialized,
         ];
 

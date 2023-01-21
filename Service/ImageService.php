@@ -34,14 +34,14 @@ class ImageService
     public function serialize(Image $image): array
     {
         $tagsSerialized = [];
-        foreach ($image->getTags() as $tag) {
-            $tagsSerialized[] = $this->tagService->serialize($tag);
+        foreach ($image->getTagValues() as $tag) {
+            $tagsSerialized[] = $this->tagValueService->serialize($tag);
         }
 
         return [
             'id' => $image->getId(),
             'source' => $image->getSource(),
-            'tags' => $tagsSerialized,
+            'tagValues' => $tagsSerialized,
         ];
     }
 }

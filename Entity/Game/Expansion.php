@@ -7,13 +7,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\ImagesUtilizingEntityInterface;
 use Shared\Contract\TagsUtilizingEntityInterface;
+use Shared\Contract\TagValuesUtilizingEntityInterface;
 use Shared\Entity\Game;
 use Shared\Entity\Image;
 use Shared\Entity\Tag;
+use Shared\Entity\TagValue;
 use Shared\Repository\Game\ExpansionRepository;
 
 #[ORM\Entity(repositoryClass: ExpansionRepository::class)]
-class Expansion implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterface
+class Expansion implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,16 +32,17 @@ class Expansion implements ImagesUtilizingEntityInterface, TagsUtilizingEntityIn
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null; // @phpstan-ignore-line
 
-    #[ORM\ManyToMany(targetEntity: Tag::class)]
-    private Collection $tags;
-
     #[ORM\ManyToMany(targetEntity: Image::class)]
     private Collection $images;
+
+    #[ORM\OneToMany(mappedBy: 'expansion', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $tagValues;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->tagValues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,30 +87,6 @@ class Expansion implements ImagesUtilizingEntityInterface, TagsUtilizingEntityIn
     }
 
     /**
-     * @return Collection<int, Tag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        $this->tags->removeElement($tag);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Image>
      */
     public function getImages(): Collection
@@ -127,6 +106,36 @@ class Expansion implements ImagesUtilizingEntityInterface, TagsUtilizingEntityIn
     public function removeImage(Image $image): self
     {
         $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TagValue>
+     */
+    public function getTagValues(): Collection
+    {
+        return $this->tagValues;
+    }
+
+    public function addTagValue(TagValue $tagValue): self
+    {
+        if (!$this->tagValues->contains($tagValue)) {
+            $this->tagValues->add($tagValue);
+            $tagValue->setExpansion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTagValue(TagValue $tagValue): self
+    {
+        if ($this->tagValues->removeElement($tagValue)) {
+            // set the owning side to null (unless already changed)
+            if ($tagValue->getExpansion() === $this) {
+                $tagValue->setExpansion(null);
+            }
+        }
 
         return $this;
     }

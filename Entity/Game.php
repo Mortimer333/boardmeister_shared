@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\ImagesUtilizingEntityInterface;
 use Shared\Contract\TagsUtilizingEntityInterface;
+use Shared\Contract\TagValuesUtilizingEntityInterface;
 use Shared\Entity\Game\Expansion;
 use Shared\Repository\GameRepository;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
-class Game implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterface
+class Game implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,17 +31,18 @@ class Game implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterfa
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Expansion::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $expansions;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class)]
-    private Collection $tags;
-
     #[ORM\ManyToMany(targetEntity: Image::class)]
     private Collection $images;
+
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $tagValues;
 
     public function __construct()
     {
         $this->expansions = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->tagValues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,30 +117,6 @@ class Game implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterfa
     }
 
     /**
-     * @return Collection<int, Tag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        $this->tags->removeElement($tag);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Image>
      */
     public function getImages(): Collection
@@ -158,6 +136,36 @@ class Game implements ImagesUtilizingEntityInterface, TagsUtilizingEntityInterfa
     public function removeImage(Image $image): self
     {
         $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TagValue>
+     */
+    public function getTagValues(): Collection
+    {
+        return $this->tagValues;
+    }
+
+    public function addTagValue(TagValue $tagValue): self
+    {
+        if (!$this->tagValues->contains($tagValue)) {
+            $this->tagValues->add($tagValue);
+            $tagValue->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTagValue(TagValue $tagValue): self
+    {
+        if ($this->tagValues->removeElement($tagValue)) {
+            // set the owning side to null (unless already changed)
+            if ($tagValue->getGame() === $this) {
+                $tagValue->setGame(null);
+            }
+        }
 
         return $this;
     }

@@ -13,7 +13,7 @@ class ImageDTO
     public string $source;
 
     #[SWG\Property(type: 'array', items: new SWG\Items(
-        ref: new Model(type: TagDTO::class)
+        ref: new Model(type: TagValueDTO::class)
     ))]
-    public array $tags;
+    public array $valueTags;
 }

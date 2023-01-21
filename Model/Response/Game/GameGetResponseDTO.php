@@ -5,6 +5,7 @@ namespace Shared\Model\Response\Game;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 use Shared\Model\Definition\Game\GameEntityDTO;
+use Shared\Model\Definition\Game\GameEntityWithoutExpansionsDTO;
 use Shared\Model\Response\SuccessDTO;
 
 class GameGetResponseDTO extends SuccessDTO
@@ -16,7 +17,7 @@ class GameGetResponseDTO extends SuccessDTO
      * @var array<string> $data
      */
     #[SWG\Property(type: 'object', properties: [
-        new SWG\Property(property: 'game', ref: new Model(type: GameEntityDTO::class)),
+        new SWG\Property(property: 'game', ref: new Model(type: GameEntityWithoutExpansionsDTO::class)),
     ])]
     public array $data;
 }

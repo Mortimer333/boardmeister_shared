@@ -6,10 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\TagsUtilizingEntityInterface;
+use Shared\Contract\TagValuesUtilizingEntityInterface;
 use Shared\Repository\ImageRepository;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
-class Image implements TagsUtilizingEntityInterface
+class Image implements TagValuesUtilizingEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,12 +20,13 @@ class Image implements TagsUtilizingEntityInterface
     #[ORM\Column(length: 255)]
     private string $source;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class)]
-    private Collection $tags;
+    #[ORM\OneToMany(mappedBy: 'image', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $tagValues;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->tagValues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -45,25 +47,31 @@ class Image implements TagsUtilizingEntityInterface
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return Collection<int, TagValue>
      */
-    public function getTags(): Collection
+    public function getTagValues(): Collection
     {
-        return $this->tags;
+        return $this->tagValues;
     }
 
-    public function addTag(Tag $tag): self
+    public function addTagValue(TagValue $tagValue): self
     {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
+        if (!$this->tagValues->contains($tagValue)) {
+            $this->tagValues->add($tagValue);
+            $tagValue->setImage($this);
         }
 
         return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    public function removeTagValue(TagValue $tagValue): self
     {
-        $this->tags->removeElement($tag);
+        if ($this->tagValues->removeElement($tagValue)) {
+            // set the owning side to null (unless already changed)
+            if ($tagValue->getImage() === $this) {
+                $tagValue->setImage(null);
+            }
+        }
 
         return $this;
     }

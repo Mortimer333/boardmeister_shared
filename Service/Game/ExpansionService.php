@@ -11,8 +11,8 @@ class ExpansionService
     public function serialize(Expansion $expansion): array
     {
         $tagsSerialized = [];
-        foreach ($expansion->getTags() as $tag) {
-            $tagsSerialized[] = $this->tagService->serialize($tag);
+        foreach ($expansion->getTagValues() as $tag) {
+            $tagsSerialized[] = $this->tagValueService->serialize($tag);
         }
 
         $imagesSerialized = [];
@@ -24,7 +24,7 @@ class ExpansionService
             'id' => $expansion->getId(),
             'name' => $expansion->getName(),
             'alias' => $expansion->getAlias(),
-            'tags' => $tagsSerialized,
+            'tagValues' => $tagsSerialized,
             'images' => $imagesSerialized,
         ];
     }

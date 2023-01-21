@@ -8,6 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 use Shared\Model\Definition\ImageEntityDTO;
 use Shared\Model\Definition\TagEntityDTO;
+use Shared\Model\Definition\TagValueEntityDTO;
 
 class ExpansionDTO
 {
@@ -18,9 +19,9 @@ class ExpansionDTO
     public ?string $alias;
 
     #[SWG\Property(type: 'array', items: new SWG\Items(
-        ref: new Model(type: TagEntityDTO::class)
+        ref: new Model(type: TagValueEntityDTO::class)
     ))]
-    public array $tags;
+    public array $tagValues;
 
     #[SWG\Property(type: 'array', items: new SWG\Items(
         ref: new Model(type: ImageEntityDTO::class)
