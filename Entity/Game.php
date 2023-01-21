@@ -19,7 +19,7 @@ class Game implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityIn
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private string $code;
 
     #[ORM\Column(length: 255)]
@@ -31,7 +31,7 @@ class Game implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityIn
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Expansion::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $expansions;
 
-    #[ORM\ManyToMany(targetEntity: Image::class)]
+    #[ORM\ManyToMany(targetEntity: Image::class, orphanRemoval: true, cascade: ['remove'])]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]

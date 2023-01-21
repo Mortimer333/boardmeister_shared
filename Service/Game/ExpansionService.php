@@ -24,6 +24,7 @@ class ExpansionService
             'id' => $expansion->getId(),
             'name' => $expansion->getName(),
             'alias' => $expansion->getAlias(),
+            'code' => $expansion->getCode(),
             'tagValues' => $tagsSerialized,
             'images' => $imagesSerialized,
         ];

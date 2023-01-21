@@ -18,6 +18,9 @@ class ExpansionDTO
     #[SWG\Property(example: 'DoH', description: 'Alias of the expansion')]
     public ?string $alias;
 
+    #[SWG\Property(example: 'doh', description: 'Unique code of the expansion')]
+    public string $code;
+
     #[SWG\Property(type: 'array', items: new SWG\Items(
         ref: new Model(type: TagValueEntityDTO::class)
     ))]
