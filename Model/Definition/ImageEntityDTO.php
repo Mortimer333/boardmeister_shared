@@ -15,5 +15,5 @@ class ImageEntityDTO extends ImageDTO
     #[SWG\Property(type: 'array', items: new SWG\Items(
         ref: new Model(type: TagValueEntityDTO::class)
     ))]
-    public array $valueTags;
+    public array $tagValues;
 }
