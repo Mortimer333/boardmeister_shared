@@ -31,7 +31,7 @@ class Game implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityIn
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Expansion::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $expansions;
 
-    #[ORM\ManyToMany(targetEntity: Image::class, orphanRemoval: true, cascade: ['remove'])]
+    #[ORM\ManyToMany(targetEntity: Image::class)]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]

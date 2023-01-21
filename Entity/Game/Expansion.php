@@ -32,7 +32,7 @@ class Expansion implements ImagesUtilizingEntityInterface, TagValuesUtilizingEnt
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null; // @phpstan-ignore-line
 
-    #[ORM\ManyToMany(targetEntity: Image::class, orphanRemoval: true, cascade: ['remove'])]
+    #[ORM\ManyToMany(targetEntity: Image::class)]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'expansion', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]

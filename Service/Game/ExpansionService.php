@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Service\Game;
 
+use Doctrine\ORM\QueryBuilder;
+use Shared\Entity\Game;
 use Shared\Entity\Game\Expansion;
 
 class ExpansionService
@@ -45,8 +47,16 @@ class ExpansionService
      *
      * @return array<Expansion>
      */
-    public function list(array $pagination): array
+    public function list(array $pagination, string $gameCode): array
     {
-        return $this->em->getRepository(Expansion::class)->list($pagination);
+        $game = $this->em->getRepository(Game::class)->findOneBy(["code" => $gameCode]);
+        return $this->em->getRepository(Expansion::class)->list(
+            $pagination,
+            function (QueryBuilder $queryBuilder) use ($game) {
+                $queryBuilder->where('p.game = :game')
+                    ->setParameter('game', $game)
+                ;
+            }
+        );
     }
 }
