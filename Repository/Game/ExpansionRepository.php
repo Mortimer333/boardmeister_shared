@@ -2,10 +2,10 @@
 
 namespace Shared\Repository\Game;
 
+use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Game\Expansion;
-use App\Service\ValidationService;
 use Shared\Trait\PaginationTrait;
 
 /**

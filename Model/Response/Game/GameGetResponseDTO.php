@@ -4,7 +4,6 @@ namespace Shared\Model\Response\Game;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
-use Shared\Model\Definition\Game\GameEntityDTO;
 use Shared\Model\Definition\Game\GameEntityWithoutExpansionsDTO;
 use Shared\Model\Response\SuccessDTO;
 

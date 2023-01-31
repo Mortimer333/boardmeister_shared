@@ -6,11 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\ImagesUtilizingEntityInterface;
-use Shared\Contract\TagsUtilizingEntityInterface;
 use Shared\Contract\TagValuesUtilizingEntityInterface;
 use Shared\Entity\Game;
 use Shared\Entity\Image;
-use Shared\Entity\Tag;
 use Shared\Entity\TagValue;
 use Shared\Repository\Game\ExpansionRepository;
 

@@ -7,7 +7,6 @@ namespace Shared\Model\Definition\Game;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 use Shared\Model\Definition\ImageEntityDTO;
-use Shared\Model\Definition\TagEntityDTO;
 use Shared\Model\Definition\TagValueEntityDTO;
 
 class ExpansionDTO

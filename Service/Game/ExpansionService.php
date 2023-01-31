@@ -59,7 +59,8 @@ class ExpansionService
      */
     public function list(array $pagination, string $gameCode): array
     {
-        $game = $this->em->getRepository(Game::class)->findOneBy(["code" => $gameCode]);
+        $game = $this->em->getRepository(Game::class)->findOneBy(['code' => $gameCode]);
+
         return $this->em->getRepository(Expansion::class)->list(
             $pagination,
             function (QueryBuilder $queryBuilder) use ($game) {
