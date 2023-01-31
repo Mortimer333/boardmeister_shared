@@ -42,6 +42,16 @@ class ExpansionService
         return $expansion;
     }
 
+    public function getByCode(string $code): Expansion
+    {
+        $expansion = $this->em->getRepository(Expansion::class)->findOneBy(['code' => $code]);
+        if (!$expansion) {
+            throw new \Exception('Expansion with provided code doesn\'t exist', 400);
+        }
+
+        return $expansion;
+    }
+
     /**
      * @param array<int|array<string>> $pagination
      *
