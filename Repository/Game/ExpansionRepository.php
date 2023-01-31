@@ -5,7 +5,7 @@ namespace Shared\Repository\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Game\Expansion;
-use Shared\Service\ValidationService;
+use App\Service\ValidationService;
 use Shared\Trait\PaginationTrait;
 
 /**

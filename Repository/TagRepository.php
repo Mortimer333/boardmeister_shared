@@ -5,7 +5,7 @@ namespace Shared\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Tag;
-use Shared\Service\ValidationService;
+use App\Service\ValidationService;
 use Shared\Trait\PaginationTrait;
 
 /**
