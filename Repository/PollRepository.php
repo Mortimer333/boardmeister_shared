@@ -2,9 +2,11 @@
 
 namespace Shared\Repository;
 
+use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Poll;
+use Shared\Trait\PaginationTrait;
 
 /**
  * @extends ServiceEntityRepository<Poll>
@@ -16,8 +18,12 @@ use Shared\Entity\Poll;
  */
 class PollRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    use PaginationTrait;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        protected ValidationService $validationService,
+    ) {
         parent::__construct($registry, Poll::class);
     }
 

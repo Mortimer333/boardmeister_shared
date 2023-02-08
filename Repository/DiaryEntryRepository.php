@@ -2,9 +2,11 @@
 
 namespace Shared\Repository;
 
+use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\DiaryEntry;
+use Shared\Trait\PaginationTrait;
 
 /**
  * @extends ServiceEntityRepository<DiaryEntry>
@@ -16,8 +18,12 @@ use Shared\Entity\DiaryEntry;
  */
 class DiaryEntryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    use PaginationTrait;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        protected ValidationService $validationService,
+    ) {
         parent::__construct($registry, DiaryEntry::class);
     }
 
