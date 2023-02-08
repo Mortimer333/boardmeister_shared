@@ -31,14 +31,12 @@ class OptionService
      */
     public function serialize(Option $option): array
     {
-        $choices = [];
-        foreach ($option->getChoices() as $choice) {
-            $choices[] = $this->pollChoiceService->serialize($choice, false);
-        }
-        return [
+        $optionArr = [
             "id" => $option->getId(),
             'name' => $option->getName(),
-            'choices' => $choices,
+            'choices' => count($option->getChoices()),
         ];
+
+        return $optionArr;
     }
 }

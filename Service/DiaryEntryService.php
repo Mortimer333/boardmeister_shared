@@ -31,22 +31,30 @@ class DiaryEntryService
     /**
      * @return array<string, int|string|array<array<mixed>>|null>
      */
-    public function serialize(DiaryEntry $diaryEntry): array
+    public function serialize(DiaryEntry $diaryEntry, bool $content = true, bool $polls = true): array
     {
-        $polls = [];
-
-        foreach ($diaryEntry->getPolls() as $poll) {
-            $polls[] = $this->pollService->serialize($poll);
-        }
-
-        return [
+        $entry = [
             "id" => $diaryEntry->getId(),
             "created" => $diaryEntry->getCreated()?->getTimestamp(),
             "updated" => $diaryEntry->getUpdated()?->getTimestamp(),
             "title" => $diaryEntry->getTitle(),
-            "content" => $diaryEntry->getContent(),
             "overview" => $diaryEntry->getOverview(),
-            "polls" => $polls,
         ];
+
+        if ($content) {
+            $entry["content"] = $diaryEntry->getContent();
+        }
+
+        if ($polls) {
+            $polls = [];
+
+            foreach ($diaryEntry->getPolls() as $poll) {
+                $polls[] = $this->pollService->serialize($poll);
+            }
+
+            $entry["polls"] = $polls;
+        }
+
+        return $entry;
     }
 }
