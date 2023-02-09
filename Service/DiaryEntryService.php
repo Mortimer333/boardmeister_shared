@@ -33,6 +33,30 @@ class DiaryEntryService
      */
     public function serialize(DiaryEntry $diaryEntry, bool $content = true, bool $polls = true): array
     {
+        $polls = [];
+
+        foreach ($diaryEntry->getPolls() as $poll) {
+            $polls[] = $this->pollService->serialize($poll);
+        }
+
+        $entry = [
+            "id" => $diaryEntry->getId(),
+            "created" => $diaryEntry->getCreated()?->getTimestamp(),
+            "updated" => $diaryEntry->getUpdated()?->getTimestamp(),
+            "title" => $diaryEntry->getTitle(),
+            "overview" => $diaryEntry->getOverview(),
+            "content" => $diaryEntry->getContent(),
+            "polls" => $polls,
+        ];
+
+        return $entry;
+    }
+
+    /**
+     * @return array<string, int|string|array<array<mixed>>|null>
+     */
+    public function serializeMin(DiaryEntry $diaryEntry): array
+    {
         $entry = [
             "id" => $diaryEntry->getId(),
             "created" => $diaryEntry->getCreated()?->getTimestamp(),
@@ -40,20 +64,6 @@ class DiaryEntryService
             "title" => $diaryEntry->getTitle(),
             "overview" => $diaryEntry->getOverview(),
         ];
-
-        if ($content) {
-            $entry["content"] = $diaryEntry->getContent();
-        }
-
-        if ($polls) {
-            $polls = [];
-
-            foreach ($diaryEntry->getPolls() as $poll) {
-                $polls[] = $this->pollService->serialize($poll);
-            }
-
-            $entry["polls"] = $polls;
-        }
 
         return $entry;
     }
