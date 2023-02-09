@@ -115,8 +115,8 @@ class DiaryEntry
 
     public function addPoll(Poll $poll): self
     {
-        if (!$this->poll->contains($poll)) {
-            $this->poll->add($poll);
+        if (!$this->polls->contains($poll)) {
+            $this->polls->add($poll);
             $poll->setDiary($this);
         }
 
