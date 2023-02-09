@@ -31,7 +31,7 @@ class DiaryEntryService
     /**
      * @return array<string, int|string|array<array<mixed>>|null>
      */
-    public function serialize(DiaryEntry $diaryEntry, bool $content = true, bool $polls = true): array
+    public function serialize(DiaryEntry $diaryEntry): array
     {
         $polls = [];
 
