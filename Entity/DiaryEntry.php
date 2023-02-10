@@ -6,10 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Shared\Contract\TagValuesUtilizingEntityInterface;
 use Shared\Repository\DiaryEntryRepository;
 
 #[ORM\Entity(repositoryClass: DiaryEntryRepository::class)]
-class DiaryEntry
+class DiaryEntry implements TagValuesUtilizingEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,10 +35,14 @@ class DiaryEntry
     #[ORM\OneToMany(mappedBy: 'diary', targetEntity: Poll::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $polls;
 
+    #[ORM\OneToMany(mappedBy: 'diary', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $tagValues;
+
     public function __construct() {
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
         $this->polls = new ArrayCollection();
+        $this->tagValues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +134,36 @@ class DiaryEntry
             // set the owning side to null (unless already changed)
             if ($poll->getDiary() === $this) {
                 $poll->getDiary(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TagValue>
+     */
+    public function getTagValues(): Collection
+    {
+        return $this->tagValues;
+    }
+
+    public function addTagValue(TagValue $tagValue): self
+    {
+        if (!$this->tagValues->contains($tagValue)) {
+            $this->tagValues->add($tagValue);
+            $tagValue->setDiary($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTagValue(TagValue $tagValue): self
+    {
+        if ($this->tagValues->removeElement($tagValue)) {
+            // set the owning side to null (unless already changed)
+            if ($tagValue->getDiary() === $this) {
+                $tagValue->setDiary(null);
             }
         }
 

@@ -39,6 +39,11 @@ class DiaryEntryService
             $polls[] = $this->pollService->serialize($poll);
         }
 
+        $tagsSerialized = [];
+        foreach ($diaryEntry->getTagValues() as $tag) {
+            $tagsSerialized[] = $this->tagValueService->serialize($tag);
+        }
+
         $entry = [
             "id" => $diaryEntry->getId(),
             "created" => $diaryEntry->getCreated()?->getTimestamp(),
@@ -46,6 +51,7 @@ class DiaryEntryService
             "title" => $diaryEntry->getTitle(),
             "overview" => $diaryEntry->getOverview(),
             "content" => $diaryEntry->getContent(),
+            "tagValues" => $tagsSerialized,
             "polls" => $polls,
         ];
 
@@ -57,12 +63,18 @@ class DiaryEntryService
      */
     public function serializeMin(DiaryEntry $diaryEntry): array
     {
+        $tagsSerialized = [];
+        foreach ($diaryEntry->getTagValues() as $tag) {
+            $tagsSerialized[] = $this->tagValueService->serialize($tag);
+        }
+
         $entry = [
             "id" => $diaryEntry->getId(),
             "created" => $diaryEntry->getCreated()?->getTimestamp(),
             "updated" => $diaryEntry->getUpdated()?->getTimestamp(),
             "title" => $diaryEntry->getTitle(),
             "overview" => $diaryEntry->getOverview(),
+            "tagValues" => $tagsSerialized,
         ];
 
         return $entry;

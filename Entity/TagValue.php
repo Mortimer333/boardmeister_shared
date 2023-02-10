@@ -30,6 +30,9 @@ class TagValue
     #[ORM\ManyToOne(inversedBy: 'tagValues')]
     private ?Expansion $expansion = null;
 
+    #[ORM\ManyToOne(inversedBy: 'tagValues')]
+    private ?DiaryEntry $diary = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class TagValue
     public function setExpansion(?Expansion $expansion): self
     {
         $this->expansion = $expansion;
+
+        return $this;
+    }
+
+    public function getDiary(): ?DiaryEntry
+    {
+        return $this->diary;
+    }
+
+    public function setDiary(?DiaryEntry $diary): self
+    {
+        $this->diary = $diary;
 
         return $this;
     }
