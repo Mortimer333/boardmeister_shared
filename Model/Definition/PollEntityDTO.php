@@ -8,7 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 use Shared\Model\Definition\Poll\OptionEntityDTO;
 
-class PollEntityDTO
+class PollEntityDTO extends PollDTO
 {
     #[SWG\Property()]
     public int $id;
