@@ -115,10 +115,10 @@ class HttpUtilService
     public function getTokenExpTimeSeconds(): int
     {
         if ($this->binUtilService->isDev()) {
-            return self::TOKEN_EXP_TIME_DEV_SECONDS;
+            return static::TOKEN_EXP_TIME_DEV_SECONDS;
         }
 
-        return self::TOKEN_EXP_TIME_SECONDS;
+        return static::TOKEN_EXP_TIME_SECONDS;
     }
 
     /**
