@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Shared\Repository\Poll\ChoiceRepository;
 
 #[ORM\Entity(repositoryClass: ChoiceRepository::class)]
-#[ORM\Table(name: "poll_choice")]
+#[ORM\Table(name: 'poll_choice')]
 class Choice
 {
     #[ORM\Id]

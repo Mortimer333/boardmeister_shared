@@ -6,11 +6,8 @@ namespace Shared\Model\Definition\Poll;
 
 use OpenApi\Attributes as SWG;
 
-class OptionEntityDTO extends OptionDTO
+class ChoiceNoIpEntityDTO extends ChoiceNoIpDTO
 {
     #[SWG\Property()]
     public int $id;
-
-    #[SWG\Property(example: 324, description: 'Amount of votes on this option')]
-    public int $choices;
 }

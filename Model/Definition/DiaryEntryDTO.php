@@ -6,7 +6,6 @@ namespace Shared\Model\Definition;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
-use Shared\Model\Definition\TagValueEntityDTO;
 
 class DiaryEntryDTO
 {
@@ -16,7 +15,10 @@ class DiaryEntryDTO
     #[SWG\Property(example: 'Entry #1', description: 'Small overview of the update')]
     public string $overview;
 
-    #[SWG\Property(example: '{"time" : 1550476186479, "blocks" : [], "version" : "2.8.1"}', description: 'JSON value for wysiwyg')]
+    #[SWG\Property(
+        example: '{"time" : 1550476186479, "blocks" : [], "version" : "2.8.1"}',
+        description: 'JSON value for wysiwyg'
+    )]
     public string $content;
 
     #[SWG\Property(type: 'array', items: new SWG\Items(

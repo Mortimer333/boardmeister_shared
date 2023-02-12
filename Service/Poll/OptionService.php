@@ -32,7 +32,7 @@ class OptionService
     public function serialize(Option $option): array
     {
         $optionArr = [
-            "id" => $option->getId(),
+            'id' => $option->getId(),
             'name' => $option->getName(),
             'choices' => count($option->getChoices()),
         ];

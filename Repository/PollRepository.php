@@ -45,6 +45,29 @@ class PollRepository extends ServiceEntityRepository
         }
     }
 
+    public function findChoice(Poll $poll, string $ip): ?Poll\Choice
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $result = $qb->select('c.id')
+            ->from(Poll::class, 'p')
+            ->where('p.id = :id')
+            ->setParameter('id', $poll->getId())
+            ->innerJoin('p.options', 'o')
+            ->innerJoin('o.choices', 'c')
+            ->andWhere('c.ip = :ip')
+            ->setParameter('ip', $ip)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$result) {
+            return null;
+        }
+
+        return $em->getRepository(Poll\Choice::class)->find($result['id']);
+    }
+
 //    /**
 //     * @return Poll[] Returns an array of Poll objects
 //     */

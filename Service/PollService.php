@@ -37,11 +37,12 @@ class PollService
         foreach ($poll->getOptions() as $option) {
             $options[] = $this->pollOptionService->serialize($option);
         }
+
         return [
-            "id" => $poll->getId(),
-            "title" => $poll->getTitle(),
-            "end" => $poll->getEndDate()?->getTimestamp(),
-            "options" => $options,
+            'id' => $poll->getId(),
+            'title' => $poll->getTitle(),
+            'end' => $poll->getEndDate()?->getTimestamp(),
+            'options' => $options,
         ];
     }
 }

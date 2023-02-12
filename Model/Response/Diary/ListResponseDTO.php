@@ -5,7 +5,6 @@ namespace Shared\Model\Response\Diary;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
 use Shared\Model\Definition\DiaryEntryLiteEntityDTO;
-use Shared\Model\Definition\Game\GameEntityWithoutExpansionsDTO;
 use Shared\Model\Response\SuccessDTO;
 
 class ListResponseDTO extends SuccessDTO

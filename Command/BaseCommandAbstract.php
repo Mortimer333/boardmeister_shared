@@ -343,7 +343,8 @@ abstract class BaseCommandAbstract extends Command
                         $size = \memory_get_usage(true);
                         $unit = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
 
-                        return \round($size / \pow(1024, $i = floor(log($size, 1024))), 2) . ' BaseCommandAbstract.php' . $unit[$i];
+                        return \round($size / \pow(1024, $i = floor(log($size, 1024))), 2)
+                            . ' BaseCommandAbstract.php' . $unit[$i];
                     })()
                 )
             );

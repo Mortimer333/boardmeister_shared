@@ -45,14 +45,14 @@ class DiaryEntryService
         }
 
         $entry = [
-            "id" => $diaryEntry->getId(),
-            "created" => $diaryEntry->getCreated()?->getTimestamp(),
-            "updated" => $diaryEntry->getUpdated()?->getTimestamp(),
-            "title" => $diaryEntry->getTitle(),
-            "overview" => $diaryEntry->getOverview(),
-            "content" => $diaryEntry->getContent(),
-            "tagValues" => $tagsSerialized,
-            "polls" => $polls,
+            'id' => $diaryEntry->getId(),
+            'created' => $diaryEntry->getCreated()?->getTimestamp(),
+            'updated' => $diaryEntry->getUpdated()?->getTimestamp(),
+            'title' => $diaryEntry->getTitle(),
+            'overview' => $diaryEntry->getOverview(),
+            'content' => $diaryEntry->getContent(),
+            'tagValues' => $tagsSerialized,
+            'polls' => $polls,
         ];
 
         return $entry;
@@ -69,12 +69,12 @@ class DiaryEntryService
         }
 
         $entry = [
-            "id" => $diaryEntry->getId(),
-            "created" => $diaryEntry->getCreated()?->getTimestamp(),
-            "updated" => $diaryEntry->getUpdated()?->getTimestamp(),
-            "title" => $diaryEntry->getTitle(),
-            "overview" => $diaryEntry->getOverview(),
-            "tagValues" => $tagsSerialized,
+            'id' => $diaryEntry->getId(),
+            'created' => $diaryEntry->getCreated()?->getTimestamp(),
+            'updated' => $diaryEntry->getUpdated()?->getTimestamp(),
+            'title' => $diaryEntry->getTitle(),
+            'overview' => $diaryEntry->getOverview(),
+            'tagValues' => $tagsSerialized,
         ];
 
         return $entry;

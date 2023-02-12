@@ -6,7 +6,6 @@ namespace Shared\Model\Definition;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
-use Shared\Model\Definition\TagValueEntityDTO;
 
 class DiaryEntryLiteDTO
 {

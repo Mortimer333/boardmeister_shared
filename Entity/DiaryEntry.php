@@ -38,7 +38,8 @@ class DiaryEntry implements TagValuesUtilizingEntityInterface
     #[ORM\OneToMany(mappedBy: 'diary', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $tagValues;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
         $this->polls = new ArrayCollection();

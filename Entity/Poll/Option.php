@@ -9,7 +9,7 @@ use Shared\Entity\Poll;
 use Shared\Repository\Poll\OptionRepository;
 
 #[ORM\Entity(repositoryClass: OptionRepository::class)]
-#[ORM\Table(name: "poll_option")]
+#[ORM\Table(name: 'poll_option')]
 class Option
 {
     #[ORM\Id]
