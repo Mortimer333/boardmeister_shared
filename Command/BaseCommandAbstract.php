@@ -47,12 +47,6 @@ abstract class BaseCommandAbstract extends Command
     protected function configure(): void
     {
         parent::configure();
-        $this->addOption(
-            'run',
-            null,
-            InputOption::VALUE_REQUIRED,
-            'DeployActionRun ID'
-        );
     }
 
     public function presentReport(): void
