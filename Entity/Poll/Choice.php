@@ -16,7 +16,7 @@ class Choice
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Option $Option = null;
+    private ?Option $option = null;
 
     public function getId(): ?int
     {
@@ -37,12 +37,12 @@ class Choice
 
     public function getOption(): ?Option
     {
-        return $this->Option;
+        return $this->option;
     }
 
-    public function setOption(?Option $Option): self
+    public function setOption(?Option $option): self
     {
-        $this->Option = $Option;
+        $this->option = $option;
 
         return $this;
     }

@@ -50,10 +50,34 @@ class ChoiceService
         }
 
         $option->addChoice($choiceEntity);
-        $this->findAndRemovePreviousChoice($choiceEntity);
         $this->em->persist($choiceEntity);
         $this->em->flush();
 
         return $choiceEntity;
+    }
+
+    public function update(int $optionId, int $choiceId): Choice
+    {
+        /** @var Choice $choice */
+        $choice = $this->em->getRepository(Choice::class)->find($choiceId);
+        if (!$choice) {
+            throw new \Exception("Chosen choice doesn't exist", 400);
+        }
+
+        /** @var Option $option */
+        $option = $this->em->getRepository(Option::class)->find($optionId);
+        if (!$option) {
+            throw new \Exception('Chosen option doesn\'t exist', 400);
+        }
+
+        $oldOption = $choice->getOption();
+        $oldOption->removeChoice($choice);
+        $this->em->persist($oldOption);
+
+        $option->addChoice($choice);
+        $this->em->persist($option);
+        $this->em->flush();
+
+        return $choice;
     }
 }
