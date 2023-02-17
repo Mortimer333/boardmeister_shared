@@ -31,18 +31,12 @@ class ChoiceService
     /**
      * @return array<string, int|string>
      */
-    public function serialize(Choice $choice, bool $addIp = true): array
+    public function serialize(Choice $choice): array
     {
-        $choiceAr = [
+        return [
             'id' => $choice->getId(),
             'optionId' => $choice->getOption()->getId(),
         ];
-
-        if ($addIp) {
-            $choiceAr['ip'] = $choice->getIp();
-        }
-
-        return $choiceAr;
     }
 
     public function create(int $optionId): Choice
@@ -56,22 +50,10 @@ class ChoiceService
         }
 
         $option->addChoice($choiceEntity);
-        // @TODO change IP to userId when it will be finished
-        $choiceEntity->setIp($this->binUtilService->getCurrentIp());
         $this->findAndRemovePreviousChoice($choiceEntity);
         $this->em->persist($choiceEntity);
         $this->em->flush();
 
         return $choiceEntity;
-    }
-
-    protected function findAndRemovePreviousChoice(Choice $choice): void
-    {
-        $poll = $choice->getOption()->getPoll();
-        $oldChoice = $this->em->getRepository(Poll::class)->findChoice($poll, $choice->getIp());
-        if ($oldChoice) {
-            $this->em->remove($oldChoice);
-            $this->em->flush();
-        }
     }
 }
