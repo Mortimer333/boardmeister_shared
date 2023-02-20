@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Shared\Model\Definition;
+
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as SWG;
+
+class DiaryEntryParsedDTO
+{
+    #[SWG\Property(example: 'Dev diary entry #1', description: 'Name of the entry in the diary')]
+    public string $title;
+
+    #[SWG\Property(example: 'Entry #1', description: 'Small overview of the update')]
+    public string $overview;
+
+    #[SWG\Property(
+        example: '<p>Test</p>',
+        description: 'Parsed wysiwyg'
+    )]
+    public string $content;
+
+    #[SWG\Property(type: 'array', items: new SWG\Items(
+        ref: new Model(type: PollDTO::class)
+    ))]
+    public array $polls;
+
+    #[SWG\Property(type: 'array', items: new SWG\Items(
+        ref: new Model(type: TagValueEntityDTO::class)
+    ))]
+    public array $tagValues;
+}

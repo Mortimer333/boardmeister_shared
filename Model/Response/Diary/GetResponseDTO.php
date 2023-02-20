@@ -6,7 +6,7 @@ namespace Shared\Model\Response\Diary;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
-use Shared\Model\Definition\DiaryEntryEntityDTO;
+use Shared\Model\Definition\DiaryEntryParsedEntityDTO;
 use Shared\Model\Response\SuccessDTO;
 
 class GetResponseDTO extends SuccessDTO
@@ -18,7 +18,7 @@ class GetResponseDTO extends SuccessDTO
      * @var array<string> $data
      */
     #[SWG\Property(type: 'object', properties: [
-        new SWG\Property(property: 'entry', ref: new Model(type: DiaryEntryEntityDTO::class)),
+        new SWG\Property(property: 'entry', ref: new Model(type: DiaryEntryParsedEntityDTO::class)),
     ])]
     public array $data;
 }
