@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Shared\Service\Poll;
 
-use Shared\Entity\Poll;
 use Shared\Entity\Poll\Choice;
 use Shared\Entity\Poll\Option;
 

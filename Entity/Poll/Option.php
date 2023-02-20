@@ -24,7 +24,7 @@ class Option
     #[ORM\JoinColumn(nullable: false)]
     private ?Poll $poll = null;
 
-    #[ORM\OneToMany(mappedBy: 'option', targetEntity: Choice::class, cascade: ['persist','remove'])]
+    #[ORM\OneToMany(mappedBy: 'option', targetEntity: Choice::class, cascade: ['persist', 'remove'])]
     private Collection $choices;
 
     public function __construct()
