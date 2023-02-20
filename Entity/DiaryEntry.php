@@ -38,6 +38,9 @@ class DiaryEntry implements TagValuesUtilizingEntityInterface
     #[ORM\OneToMany(mappedBy: 'diary', targetEntity: TagValue::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $tagValues;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $contentParsed = null;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -167,6 +170,18 @@ class DiaryEntry implements TagValuesUtilizingEntityInterface
                 $tagValue->setDiary(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getContentParsed(): ?string
+    {
+        return $this->contentParsed;
+    }
+
+    public function setContentParsed(?string $contentParsed): self
+    {
+        $this->contentParsed = $contentParsed;
 
         return $this;
     }

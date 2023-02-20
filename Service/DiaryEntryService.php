@@ -31,7 +31,7 @@ class DiaryEntryService
     /**
      * @return array<string, int|string|array<array<mixed>>|null>
      */
-    public function serialize(DiaryEntry $diaryEntry): array
+    public function serialize(DiaryEntry $diaryEntry, bool $edit = true): array
     {
         $polls = [];
 
@@ -50,7 +50,7 @@ class DiaryEntryService
             'updated' => $diaryEntry->getUpdated()?->getTimestamp(),
             'title' => $diaryEntry->getTitle(),
             'overview' => $diaryEntry->getOverview(),
-            'content' => $diaryEntry->getContent(),
+            'content' => $edit ? $diaryEntry->getContent() : $diaryEntry->getContentParsed(),
             'tagValues' => $tagsSerialized,
             'polls' => $polls,
         ];
