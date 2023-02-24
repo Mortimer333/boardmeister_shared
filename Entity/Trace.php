@@ -17,11 +17,8 @@ class Trace
     #[ORM\Column(nullable: true)]
     private array $payload = [];
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $endpoint = null;
-
-    #[ORM\ManyToOne]
-    private ?Admin $adminUser = null;
 
     #[ORM\Column(length: 255)]
     private ?string $ip = null;

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Shared\Command;
 
 use App\Service\Util\BinUtilService;
+use App\Service\Util\HttpUtilService;
 use Psr\Log\LoggerInterface;
+use App\Service\TraceService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -42,6 +44,7 @@ abstract class BaseCommandAbstract extends Command
 
     protected LoggerInterface $logger;
     protected BinUtilService $binUtilService;
+    protected TraceService $traceService;
 
     protected function configure(): void
     {
@@ -54,21 +57,21 @@ abstract class BaseCommandAbstract extends Command
 
         $this->log('Command has finished. ' . $endReport);
 
-        if (\sizeof($this->warnings) > 0) {
-            $this->log('Displaying warnings:');
-            $this->increaseIndent();
-            foreach ($this->warnings as $i => $warning) {
-                $this->logError('[WARNING] ' . ($i + 1) . ':', $warning);
-            }
-            $this->decreaseIndent();
-            $this->log('============');
-        }
-
         if (\sizeof($this->infos) > 0) {
             $this->log('Displaying announcements:');
             $this->increaseIndent();
             foreach ($this->infos as $i => $info) {
                 $this->logError('[INFO] ' . ($i + 1) . ':', $info);
+            }
+            $this->decreaseIndent();
+            $this->log('============');
+        }
+
+        if (\sizeof($this->warnings) > 0) {
+            $this->log('Displaying warnings:');
+            $this->increaseIndent();
+            foreach ($this->warnings as $i => $warning) {
+                $this->logError('[WARNING] ' . ($i + 1) . ':', $warning);
             }
             $this->decreaseIndent();
             $this->log('============');
@@ -208,6 +211,11 @@ abstract class BaseCommandAbstract extends Command
             if (self::FAILURE === $returnValue) {
                 $this->addError('Unexpected Error', $e);
                 $this->binUtilService->saveLastErrorTrace($e);
+                $infos = array_map(fn($value) => '[INFO] ' . $value, $this->infos);
+                $warnings = array_map(fn($value) => '[WARNING] ' . $value, $this->warnings);
+                $errors = array_map(fn($value) => '[ERROR] ' . $value, $this->errors);
+                HttpUtilService::setErrors(array_merge($errors, $warnings, $infos));
+                $this->traceService->create($e);
             }
         }
 

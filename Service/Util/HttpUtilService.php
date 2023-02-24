@@ -180,30 +180,25 @@ class HttpUtilService
         return $statuses[$status] ?? false;
     }
 
-    public function getProperResponseFromException(\Throwable $exception): JsonResponse
+    public function getStatusCode(\Throwable $exception): int
     {
-        // Customize your response object to display the exception details
-        $response = new Response();
-
         // HttpExceptionInterface is a special type of exception that
         // holds status code and header details
         if ($exception instanceof HttpExceptionInterface) {
-            $response->setStatusCode($exception->getStatusCode());
-            $response->headers->replace($exception->getHeaders());
-        } else {
-            $statusCode = self::validateHttpStatus($exception->getCode())
-                ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
-            $response->setStatusCode((int) $statusCode);
+            return $exception->getStatusCode();
         }
 
-        $message = $exception->getMessage() ?: 'No message';
+        return self::validateHttpStatus($exception->getCode())
+            ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
+    }
 
-        // sends the modified response object to the event
+    public function getProperResponseFromException(\Throwable $exception): JsonResponse
+    {
         return self::jsonResponse(
-            message: $message,
-            status: $response->getStatusCode() ?: 500,
+            message: $exception->getMessage() ?: 'No message',
+            status: $this->getStatusCode($exception),
             success: false,
-            errors: self::getErrors()
+            errors: self::getErrors(),
         );
     }
 
