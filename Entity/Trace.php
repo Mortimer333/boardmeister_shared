@@ -3,8 +3,8 @@
 namespace Shared\Entity;
 
 use App\Entity\Admin;
-use App\Repository\Entity\TraceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Shared\Repository\TraceRepository;
 
 #[ORM\Entity(repositoryClass: TraceRepository::class)]
 class Trace
@@ -31,6 +31,17 @@ class Trace
 
     #[ORM\ManyToOne]
     private ?User $user = null;
+
+    #[ORM\Column]
+    private ?int $created = null;
+
+    #[ORM\Column]
+    private array $trace = [];
+
+    public function __construct()
+    {
+        $this->created = time();
+    }
 
     public function getId(): ?int
     {
@@ -117,6 +128,30 @@ class Trace
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreated(): ?int
+    {
+        return $this->created;
+    }
+
+    public function setCreated(int $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getTrace(): array
+    {
+        return $this->trace;
+    }
+
+    public function setTrace(array $trace): self
+    {
+        $this->trace = $trace;
 
         return $this;
     }
