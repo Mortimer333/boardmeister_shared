@@ -27,15 +27,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $firstname = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $surname = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $isSuper = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -71,9 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-        if ($this->isSuper()) {
-            $roles[] = 'ROLE_USER_USER';
-        }
 
         return array_unique($roles);
     }
@@ -110,41 +98,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getSurname(): ?string
-    {
-        return $this->surname;
-    }
-
-    public function setSurname(?string $surname): self
-    {
-        $this->surname = $surname;
-
-        return $this;
-    }
-
-    public function isSuper(): ?bool
-    {
-        return $this->isSuper;
-    }
-
-    public function setIsSuper(?bool $isSuper): self
-    {
-        $this->isSuper = $isSuper;
-
-        return $this;
     }
 }
