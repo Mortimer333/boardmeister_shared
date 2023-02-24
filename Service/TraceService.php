@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use Shared\Service\Util\BinUtilService;
-use Symfony\Component\HttpFoundation\Response;
 use Shared\Entity\Trace;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TraceService
 {
@@ -28,7 +27,7 @@ class TraceService
         if ($request) {
             $method = $request->getMethod();
             $trace->setEndpoint($request->getMethod() . ' ' . $request->getPathInfo());
-            if ($method !== 'GET' && $method !== 'HEAD') {
+            if ('GET' !== $method && 'HEAD' !== $method) {
                 $trace->setPayload(json_decode($request->getContent(), true) ?? ['failure' => $request->getContent()]);
             }
         }

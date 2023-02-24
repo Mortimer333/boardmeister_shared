@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Shared\Command;
 
+use App\Service\TraceService;
 use App\Service\Util\BinUtilService;
 use App\Service\Util\HttpUtilService;
 use Psr\Log\LoggerInterface;
-use App\Service\TraceService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -211,9 +211,9 @@ abstract class BaseCommandAbstract extends Command
             if (self::FAILURE === $returnValue) {
                 $this->addError('Unexpected Error', $e);
                 $this->binUtilService->saveLastErrorTrace($e);
-                $infos = array_map(fn($value) => '[INFO] ' . $value, $this->infos);
-                $warnings = array_map(fn($value) => '[WARNING] ' . $value, $this->warnings);
-                $errors = array_map(fn($value) => '[ERROR] ' . $value, $this->errors);
+                $infos = array_map(fn ($value) => '[INFO] ' . $value, $this->infos);
+                $warnings = array_map(fn ($value) => '[WARNING] ' . $value, $this->warnings);
+                $errors = array_map(fn ($value) => '[ERROR] ' . $value, $this->errors);
                 HttpUtilService::setErrors(array_merge($errors, $warnings, $infos));
                 $this->traceService->create($e);
             }
