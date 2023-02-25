@@ -71,7 +71,7 @@ class BinUtilService
         ) ?? '') ?? '';
     }
 
-    public function getCurrentIp(): string
+    public static function getCurrentIp(): string
     {
         return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
     }
