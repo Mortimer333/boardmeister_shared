@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use Psr\Log\LoggerInterface;
+use Shared\Service\Util\BinUtilService;
+use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -23,7 +25,7 @@ abstract class HttpServiceAbstract
     protected function request(
         string $method,
         string $endpoint,
-        array $params = [],
+        FormDataPart|array $params = [],
         array $headers = [],
     ): ResponseInterface {
         try {
@@ -33,8 +35,9 @@ abstract class HttpServiceAbstract
                 $this->getOptions($params, $headers)
             );
         } catch (\Throwable $e) {
+            BinUtilService::logToTest($e->getMessage() . ' => ' . $e->getFile() . ' => ' . $e->getLine(), 'a');
             $this->logger->error($e->getMessage() . ' => ' . $e->getFile() . ' => ' . $e->getLine());
-            throw new \Exception('Email was not send', 500);
+            throw new \Exception('Request was not send', 500);
         }
     }
 
@@ -44,8 +47,6 @@ abstract class HttpServiceAbstract
     protected function getHeaders(): array
     {
         return [
-            'Content-Type' => 'application/json',
-            'X-API-KEY' => $_ENV['MAILBABY_API_TOKEN'],
             'User-Agent' => 'BoardMeister',
         ];
     }
@@ -53,15 +54,19 @@ abstract class HttpServiceAbstract
     abstract protected function getApiUrl(): string;
 
     /**
-     * @param array<string, mixed> $params
-     * @param array<string, mixed> $headers
+     * @param FormDataPart|array<string, mixed> $params
+     * @param array<string, mixed>              $headers
      *
      * @return array<string, mixed>
      */
-    protected function getOptions(array $params, array $headers): array
+    protected function getOptions(FormDataPart|array $params, array $headers): array
     {
         $body['headers'] = array_merge($this->getHeaders(), $headers);
-        $body['json'] = $params;
+        if ($params instanceof FormDataPart) {
+            $body['body'] = $params->bodyToIterable();
+        } else {
+            $body['json'] = $params;
+        }
 
         return $body;
     }
