@@ -1,11 +1,11 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Poll;
+use Shared\Entity\Internal\Poll;
 use Shared\Trait\PaginationTrait;
 
 /**
@@ -45,7 +45,7 @@ class PollRepository extends ServiceEntityRepository
         }
     }
 
-    public function findChoice(Poll $poll, string $ip): ?Poll\Choice
+    public function findChoice(Poll $poll, string $ip): ?\Shared\Entity\Internal\Poll\Choice
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -65,7 +65,7 @@ class PollRepository extends ServiceEntityRepository
             return null;
         }
 
-        return $em->getRepository(Poll\Choice::class)->find($result['id']);
+        return $em->getRepository(\Shared\Entity\Internal\Poll\Choice::class)->find($result['id']);
     }
 
 //    /**

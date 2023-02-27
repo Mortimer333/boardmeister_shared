@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use Shared\Entity\Poll;
+use Shared\Entity\Internal\Poll;
 
 class PollService
 {

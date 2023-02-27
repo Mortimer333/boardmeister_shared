@@ -1,13 +1,13 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\TagValuesUtilizingEntityInterface;
-use Shared\Repository\DiaryEntryRepository;
+use Shared\Repository\Internal\DiaryEntryRepository;
 
 #[ORM\Entity(repositoryClass: DiaryEntryRepository::class)]
 class DiaryEntry implements TagValuesUtilizingEntityInterface

@@ -1,12 +1,12 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\TagValuesUtilizingEntityInterface;
-use Shared\Repository\ImageRepository;
+use Shared\Repository\Internal\ImageRepository;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image implements TagValuesUtilizingEntityInterface

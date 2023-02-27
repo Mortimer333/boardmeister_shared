@@ -1,12 +1,15 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Api;
 
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Repository\UserRepository;
+use Shared\Repository\Api\UserRepository;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Private user information.
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -26,6 +29,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** @var string The hashed password $password */
     #[ORM\Column]
     private string $password;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserData $data = null;
 
     public function getId(): ?int
     {
@@ -98,5 +104,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getData(): ?UserData
+    {
+        return $this->data;
+    }
+
+    public function setData(UserData $data): self
+    {
+        // set the owning side of the relation if necessary
+        if ($data->getUser() !== $this) {
+            $data->setUser($this);
+        }
+
+        $this->data = $data;
+
+        return $this;
     }
 }

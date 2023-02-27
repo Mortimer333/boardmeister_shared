@@ -1,9 +1,9 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Repository\TagRepository;
+use Shared\Repository\Internal\TagRepository;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag

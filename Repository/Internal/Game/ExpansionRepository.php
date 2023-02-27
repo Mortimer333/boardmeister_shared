@@ -1,11 +1,11 @@
 <?php
 
-namespace Shared\Repository\Game;
+namespace Shared\Repository\Internal\Game;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Game\Expansion;
+use Shared\Entity\Internal\Game\Expansion;
 use Shared\Trait\PaginationTrait;
 
 /**

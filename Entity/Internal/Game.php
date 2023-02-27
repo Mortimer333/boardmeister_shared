@@ -1,14 +1,14 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Shared\Contract\ImagesUtilizingEntityInterface;
 use Shared\Contract\TagValuesUtilizingEntityInterface;
-use Shared\Entity\Game\Expansion;
-use Shared\Repository\GameRepository;
+use Shared\Entity\Internal\Game\Expansion;
+use Shared\Repository\Internal\GameRepository;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game implements ImagesUtilizingEntityInterface, TagValuesUtilizingEntityInterface

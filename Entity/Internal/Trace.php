@@ -1,10 +1,9 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
-use App\Entity\Admin;
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Repository\TraceRepository;
+use Shared\Repository\Internal\TraceRepository;
 
 #[ORM\Entity(repositoryClass: TraceRepository::class)]
 class Trace
@@ -29,8 +28,8 @@ class Trace
     #[ORM\Column]
     private ?int $code = null;
 
-    #[ORM\ManyToOne]
-    private ?User $user = null;
+    #[ORM\Column]
+    private ?int $userId = null;
 
     #[ORM\Column]
     private ?int $created = null;
@@ -72,18 +71,6 @@ class Trace
         return $this;
     }
 
-    public function getAdminUser(): ?Admin
-    {
-        return $this->adminUser;
-    }
-
-    public function setAdminUser(?Admin $adminUser): self
-    {
-        $this->adminUser = $adminUser;
-
-        return $this;
-    }
-
     public function getIp(): ?string
     {
         return $this->ip;
@@ -120,14 +107,14 @@ class Trace
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUserId(): ?int
     {
-        return $this->user;
+        return $this->userId;
     }
 
-    public function setUser(?User $user): self
+    public function setUserId(?int $userId): self
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }

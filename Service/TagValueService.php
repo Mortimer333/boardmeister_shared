@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use Shared\Entity\TagValue;
+use Shared\Entity\Internal\TagValue;
 
 class TagValueService
 {

@@ -45,6 +45,11 @@ class BinUtilService
         return dirname(dirname(dirname(__DIR__)));
     }
 
+    public function isTest(): bool
+    {
+        return 'test' === $_ENV['APP_ENV'];
+    }
+
     public function isDev(): bool
     {
         $env = ['dev', 'staging'];

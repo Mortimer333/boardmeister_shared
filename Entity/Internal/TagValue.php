@@ -1,10 +1,10 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Entity\Game\Expansion;
-use Shared\Repository\TagValueRepository;
+use Shared\Entity\Internal\Game\Expansion;
+use Shared\Repository\Internal\TagValueRepository;
 
 #[ORM\Entity(repositoryClass: TagValueRepository::class)]
 class TagValue

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Service\Poll;
 
-use Shared\Entity\Poll\Option;
+use Shared\Entity\Internal\Poll\Option;
 
 class OptionService
 {

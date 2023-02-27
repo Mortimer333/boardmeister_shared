@@ -1,33 +1,33 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\TagValue;
+use Shared\Entity\Internal\Trace;
 use Shared\Trait\PaginationTrait;
 
 /**
- * @extends ServiceEntityRepository<TagValue>
+ * @extends ServiceEntityRepository<Trace>
  *
- * @method TagValue|null find($id, $lockMode = null, $lockVersion = null)
- * @method TagValue|null findOneBy(array $criteria, array $orderBy = null)
- * @method TagValue[]    findAll()
- * @method TagValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Trace|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Trace|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Trace[]    findAll()
+ * @method Trace[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagValueRepository extends ServiceEntityRepository
+class TraceRepository extends ServiceEntityRepository
 {
     use PaginationTrait;
 
     public function __construct(
-        ManagerRegistry $registry,
         protected ValidationService $validationService,
+        ManagerRegistry $registry
     ) {
-        parent::__construct($registry, TagValue::class);
+        parent::__construct($registry, Trace::class);
     }
 
-    public function save(TagValue $entity, bool $flush = false): void
+    public function save(Trace $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -36,7 +36,7 @@ class TagValueRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(TagValue $entity, bool $flush = false): void
+    public function remove(Trace $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -46,7 +46,7 @@ class TagValueRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return TagValue[] Returns an array of TagValue objects
+//     * @return Trace[] Returns an array of Trace objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -60,7 +60,7 @@ class TagValueRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?TagValue
+//    public function findOneBySomeField($value): ?Trace
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

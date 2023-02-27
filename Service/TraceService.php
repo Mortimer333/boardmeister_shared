@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Service;
 
-use Shared\Entity\Trace;
-use Shared\Entity\User;
-use Shared\Service\Util\BinUtilService;
+use Shared\Entity\Api\User;
+use Shared\Entity\Internal\Trace;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,7 +40,7 @@ class TraceService
 
         $user = $this->security->getUser();
         if ($user && $user instanceof User) {
-            $trace->setUser($user);
+            $trace->setUserId($user->getId());
         }
 
         if (!$this->em->isOpen()) {

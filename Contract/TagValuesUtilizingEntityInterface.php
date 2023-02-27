@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Shared\Contract;
 
 use Doctrine\Common\Collections\Collection;
-use Shared\Entity\TagValue;
+use Shared\Entity\Internal\TagValue;
 
 interface TagValuesUtilizingEntityInterface
 {

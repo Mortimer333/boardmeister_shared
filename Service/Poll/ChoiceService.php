@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Service\Poll;
 
-use Shared\Entity\Poll\Choice;
-use Shared\Entity\Poll\Option;
+use Shared\Entity\Internal\Poll\Choice;
+use Shared\Entity\Internal\Poll\Option;
 
 class ChoiceService
 {
@@ -49,7 +49,7 @@ class ChoiceService
         }
 
         $option->addChoice($choiceEntity);
-        $this->em->persist($choiceEntity);
+        $this->em->persist($option);
         $this->em->flush();
 
         return $choiceEntity;

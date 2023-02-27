@@ -1,22 +1,22 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Tag;
+use Shared\Entity\Internal\TagValue;
 use Shared\Trait\PaginationTrait;
 
 /**
- * @extends ServiceEntityRepository<Tag>
+ * @extends ServiceEntityRepository<TagValue>
  *
- * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tag[]    findAll()
- * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TagValue|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TagValue|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TagValue[]    findAll()
+ * @method TagValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagRepository extends ServiceEntityRepository
+class TagValueRepository extends ServiceEntityRepository
 {
     use PaginationTrait;
 
@@ -24,10 +24,10 @@ class TagRepository extends ServiceEntityRepository
         ManagerRegistry $registry,
         protected ValidationService $validationService,
     ) {
-        parent::__construct($registry, Tag::class);
+        parent::__construct($registry, TagValue::class);
     }
 
-    public function save(Tag $entity, bool $flush = false): void
+    public function save(TagValue $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -36,7 +36,7 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Tag $entity, bool $flush = false): void
+    public function remove(TagValue $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -46,7 +46,7 @@ class TagRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Tag[] Returns an array of Tag objects
+//     * @return TagValue[] Returns an array of TagValue objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -60,7 +60,7 @@ class TagRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Tag
+//    public function findOneBySomeField($value): ?TagValue
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

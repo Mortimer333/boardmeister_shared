@@ -1,13 +1,13 @@
 <?php
 
-namespace Shared\Entity;
+namespace Shared\Entity\Internal;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Entity\Poll\Option;
-use Shared\Repository\PollRepository;
+use Shared\Entity\Internal\Poll\Option;
+use Shared\Repository\Internal\PollRepository;
 
 #[ORM\Entity(repositoryClass: PollRepository::class)]
 class Poll

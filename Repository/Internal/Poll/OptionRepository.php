@@ -1,27 +1,27 @@
 <?php
 
-namespace Shared\Repository\Poll;
+namespace Shared\Repository\Internal\Poll;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Poll\Choice;
+use Shared\Entity\Internal\Poll\Option;
 
 /**
- * @extends ServiceEntityRepository<Choice>
+ * @extends ServiceEntityRepository<Option>
  *
- * @method Choice|null find($id, $lockMode = null, $lockVersion = null)
- * @method Choice|null findOneBy(array $criteria, array $orderBy = null)
- * @method Choice[]    findAll()
- * @method Choice[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Option|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Option|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Option[]    findAll()
+ * @method Option[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ChoiceRepository extends ServiceEntityRepository
+class OptionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Choice::class);
+        parent::__construct($registry, Option::class);
     }
 
-    public function save(Choice $entity, bool $flush = false): void
+    public function save(Option $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ChoiceRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Choice $entity, bool $flush = false): void
+    public function remove(Option $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ChoiceRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Choice[] Returns an array of Choice objects
+//     * @return Option[] Returns an array of Option objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ChoiceRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Choice
+//    public function findOneBySomeField($value): ?Option
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

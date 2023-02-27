@@ -1,10 +1,10 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Game;
+use Shared\Entity\Internal\Game;
 
 /**
  * @extends ServiceEntityRepository<Game>

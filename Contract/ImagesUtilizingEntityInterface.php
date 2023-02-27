@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Shared\Contract;
 
 use Doctrine\Common\Collections\Collection;
-use Shared\Entity\Image;
+use Shared\Entity\Internal\Image;
 
 interface ImagesUtilizingEntityInterface
 {

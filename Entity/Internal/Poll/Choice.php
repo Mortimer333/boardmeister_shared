@@ -1,11 +1,10 @@
 <?php
 
-namespace Shared\Entity\Poll;
+namespace Shared\Entity\Internal\Poll;
 
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Repository\Poll\ChoiceRepository;
 
-#[ORM\Entity(repositoryClass: ChoiceRepository::class)]
+#[ORM\Entity(repositoryClass: \Shared\Repository\Internal\Poll\ChoiceRepository::class)]
 #[ORM\Table(name: 'poll_choice')]
 class Choice
 {

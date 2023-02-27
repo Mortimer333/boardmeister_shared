@@ -1,22 +1,22 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\Image;
+use Shared\Entity\Internal\Tag;
 use Shared\Trait\PaginationTrait;
 
 /**
- * @extends ServiceEntityRepository<Image>
+ * @extends ServiceEntityRepository<Tag>
  *
- * @method Image|null find($id, $lockMode = null, $lockVersion = null)
- * @method Image|null findOneBy(array $criteria, array $orderBy = null)
- * @method Image[]    findAll()
- * @method Image[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Tag[]    findAll()
+ * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ImageRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository
 {
     use PaginationTrait;
 
@@ -24,10 +24,10 @@ class ImageRepository extends ServiceEntityRepository
         ManagerRegistry $registry,
         protected ValidationService $validationService,
     ) {
-        parent::__construct($registry, Image::class);
+        parent::__construct($registry, Tag::class);
     }
 
-    public function save(Image $entity, bool $flush = false): void
+    public function save(Tag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -36,7 +36,7 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Image $entity, bool $flush = false): void
+    public function remove(Tag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -46,24 +46,24 @@ class ImageRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Image[] Returns an array of Image objects
+//     * @return Tag[] Returns an array of Tag objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
+//            ->orderBy('t.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Image
+//    public function findOneBySomeField($value): ?Tag
 //    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

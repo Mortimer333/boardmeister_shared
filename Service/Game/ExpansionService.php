@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Shared\Service\Game;
 
 use Doctrine\ORM\QueryBuilder;
-use Shared\Entity\Game;
-use Shared\Entity\Game\Expansion;
+use Shared\Entity\Internal\Game;
+use Shared\Entity\Internal\Game\Expansion;
 
 class ExpansionService
 {

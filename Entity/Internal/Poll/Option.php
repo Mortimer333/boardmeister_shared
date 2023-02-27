@@ -1,14 +1,13 @@
 <?php
 
-namespace Shared\Entity\Poll;
+namespace Shared\Entity\Internal\Poll;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Shared\Entity\Poll;
-use Shared\Repository\Poll\OptionRepository;
+use Shared\Entity\Internal\Poll;
 
-#[ORM\Entity(repositoryClass: OptionRepository::class)]
+#[ORM\Entity(repositoryClass: \Shared\Repository\Internal\Poll\OptionRepository::class)]
 #[ORM\Table(name: 'poll_option')]
 class Option
 {

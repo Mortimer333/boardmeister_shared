@@ -1,11 +1,11 @@
 <?php
 
-namespace Shared\Repository;
+namespace Shared\Repository\Internal;
 
 use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Shared\Entity\DiaryEntry;
+use Shared\Entity\Internal\DiaryEntry;
 use Shared\Trait\PaginationTrait;
 
 /**
