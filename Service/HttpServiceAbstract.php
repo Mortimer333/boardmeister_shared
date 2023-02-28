@@ -35,7 +35,6 @@ abstract class HttpServiceAbstract
                 $this->getOptions($params, $headers)
             );
         } catch (\Throwable $e) {
-            BinUtilService::logToTest($e->getMessage() . ' => ' . $e->getFile() . ' => ' . $e->getLine(), 'a');
             $this->logger->error($e->getMessage() . ' => ' . $e->getFile() . ' => ' . $e->getLine());
             throw new \Exception('Request was not send', 500);
         }

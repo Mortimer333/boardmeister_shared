@@ -28,7 +28,7 @@ class Trace
     #[ORM\Column]
     private ?int $code = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $userId = null;
 
     #[ORM\Column]
