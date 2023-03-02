@@ -33,6 +33,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?UserData $data = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $activationToken = null;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private ?bool $activated = null;
+
+    #[ORM\Column]
+    private ?int $created = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $whenActivated = null;
+
+    public function __construct() {
+        $this->setCreated(time());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +135,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->data = $data;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function isActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    public function setActivated(bool $activated): self
+    {
+        $this->activated = $activated;
+
+        return $this;
+    }
+
+    public function getCreated(): ?int
+    {
+        return $this->created;
+    }
+
+    public function setCreated(int $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getWhenActivated(): ?int
+    {
+        return $this->whenActivated;
+    }
+
+    public function setWhenActivated(?int $whenActivated): self
+    {
+        $this->whenActivated = $whenActivated;
 
         return $this;
     }
