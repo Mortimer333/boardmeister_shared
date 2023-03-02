@@ -46,11 +46,18 @@ class UserService
         return $user;
     }
 
+    public function remove(int $id): void
+    {
+        $user = $this->get($id);
+        $this->em->remove($user);
+        $this->em->flush();
+    }
+
     public function activate(int $id, string $token): void
     {
         $user = $this->get($id);
         if ($user->isActivated()) {
-            throw new \Exception("User is already activated", 400);
+            throw new \Exception('User is already activated', 400);
         }
 
         if (!empty($user->getActivationToken()) && $user->getActivationToken() !== $token) {
@@ -68,7 +75,7 @@ class UserService
     {
         $user = $this->get($id);
         if (!$user->isActivated()) {
-            throw new \Exception("User is already deactivated", 400);
+            throw new \Exception('User is already deactivated', 400);
         }
 
         $user->setActivationToken(null);

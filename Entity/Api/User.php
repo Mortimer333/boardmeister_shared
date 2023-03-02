@@ -45,8 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $whenActivated = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setCreated(time());
+        $this->setActivated(false);
     }
 
     public function getId(): ?int

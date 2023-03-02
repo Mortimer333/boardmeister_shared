@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Shared\Service;
 
 use Psr\Log\LoggerInterface;
-use Shared\Service\Util\BinUtilService;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
