@@ -38,6 +38,30 @@ class UserService
         return $user;
     }
 
+    /**
+     * @return array{id: int|null, email: string, data: array<string, mixed>, created: string}
+     */
+    public function serialize(User $user): array
+    {
+        return [
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'data' => $this->serializeData($user->getData()),
+            'created' => date('Y-m-d H:i:s', $user->getCreated()),
+        ];
+    }
+
+    /**
+     * @return array{id: int|null, name: string|null}
+     */
+    public function serializeData(UserData $data): array
+    {
+        return [
+            'id' => $data->getId(),
+            'name' => $data->getName(),
+        ];
+    }
+
     public function validateUserRemoval(User $user, #[SensitiveParameter] string $password): void
     {
         if (!$this->verifyUserPassword($password, $user)) {
@@ -121,6 +145,24 @@ class UserService
         $user->setActivationToken(null);
         $user->setActivated(false);
         $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function update(User $user, array $data): void
+    {
+        $userData = $user->getData();
+        if (!$userData) {
+            throw new \Exception('User data got detached, contact administrator', 500);
+        }
+
+        /** @var string $username */
+        $username = $data['username'] ?? throw new \Exception('Missing username', 500);
+        $userData->setName($username);
+
+        $this->em->persist($userData);
         $this->em->flush();
     }
 }
