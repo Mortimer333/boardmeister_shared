@@ -16,12 +16,17 @@ class UserData
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\OneToOne(inversedBy: 'data', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'data', cascade: ['persist'])]
     private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $oldName = null;
 
     public function getId(): ?int
     {
@@ -33,7 +38,7 @@ class UserData
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -45,9 +50,33 @@ class UserData
         return $this->user;
     }
 
-    public function setUser(User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?int
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(?int $deleted): self
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getOldName(): ?string
+    {
+        return $this->oldName;
+    }
+
+    public function setOldName(?string $oldName): self
+    {
+        $this->oldName = $oldName;
 
         return $this;
     }

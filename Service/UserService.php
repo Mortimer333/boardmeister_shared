@@ -7,12 +7,16 @@ namespace Shared\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Api\User;
 use Shared\Entity\Api\UserData;
+use Shared\Service\Util\BinUtilService;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserService
 {
     protected EntityManagerInterface $em;
     protected UserPasswordHasherInterface $passwordHasher;
+    protected Security $security;
 
     public function get(int $id): User
     {
@@ -24,7 +28,31 @@ class UserService
         return $user;
     }
 
-    public function create(array $registration): User
+    public function getLoggedInUser(): User
+    {
+        $user = $this->security->getUser();
+        if (!$user) {
+            throw new \Exception('User is not logged in', 400);
+        }
+
+        return $user;
+    }
+
+    public function validateUserRemoval(User $user, #[SensitiveParameter] string $password): void
+    {
+        if (!$this->verifyUserPassword($password, $user)) {
+            throw new \Exception("Sent password doesn't match, user was not removed", 403);
+        }
+    }
+
+    public function verifyUserPassword(
+        #[SensitiveParameter] string $password,
+        PasswordAuthenticatedUserInterface $user
+    ): bool {
+        return $this->passwordHasher->isPasswordValid($user, $password);
+    }
+
+    public function create(#[SensitiveParameter] array $registration): User
     {
         $user = new User();
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -46,14 +74,25 @@ class UserService
         return $user;
     }
 
-    public function remove(int $id): void
+    public function remove(int $id, bool $deleteAll = false): void
     {
         $user = $this->get($id);
+        $data = $user->getData();
+        if ($deleteAll) {
+            $this->em->remove($data);
+        } else {
+            $data->setUser(null)
+                ->setOldName($data->getName())      // saving old name to display it together with deletion date
+                ->setName(null)                     // setting name to null to make it available for other users to use
+                ->setDeleted(time())
+            ;
+            $this->em->persist($data);
+        }
         $this->em->remove($user);
         $this->em->flush();
     }
 
-    public function activate(int $id, string $token): void
+    public function activate(int $id, #[SensitiveParameter] string $token): void
     {
         $user = $this->get($id);
         if ($user->isActivated()) {
@@ -67,6 +106,7 @@ class UserService
         $user->setWhenActivated(time());
         $user->setActivationToken(null);
         $user->setActivated(true);
+
         $this->em->persist($user);
         $this->em->flush();
     }
