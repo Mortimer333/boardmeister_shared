@@ -7,7 +7,6 @@ namespace Shared\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Api\User;
 use Shared\Entity\Api\UserData;
-use Shared\Service\Util\BinUtilService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
