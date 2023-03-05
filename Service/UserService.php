@@ -115,6 +115,25 @@ class UserService
         $this->em->flush();
     }
 
+    public function activate(int $id, #[SensitiveParameter] string $token): void
+    {
+        $user = $this->get($id);
+        if ($user->isActivated()) {
+            throw new \Exception('User is already activated', 400);
+        }
+
+        if (!empty($user->getActivationToken()) && $user->getActivationToken() !== $token) {
+            throw new \Exception("Account wasn't activated", 400);
+        }
+
+        $user->setWhenActivated(time());
+        $user->setActivationToken(null);
+        $user->setActivated(true);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
     public function deactivate(int $id): void
     {
         $user = $this->get($id);
