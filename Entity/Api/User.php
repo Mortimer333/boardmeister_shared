@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist'])]
     private ?UserData $data = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 64, nullable: true)]
     private ?string $activationToken = null;
 
     #[ORM\Column(options: ['default' => 0])]
@@ -48,8 +48,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $newEmail = null;
 
-    #[ORM\Column(length: 32, nullable: true)]
+    #[ORM\Column(length: 64, nullable: true)]
     private ?string $emailVerificationToken = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $activationTokenExp = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $emailVerificationTokenExp = null;
 
     public function __construct()
     {
@@ -215,6 +221,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailVerificationToken(?string $emailVerificationToken): self
     {
         $this->emailVerificationToken = $emailVerificationToken;
+
+        return $this;
+    }
+
+    public function getActivationTokenExp(): ?int
+    {
+        return $this->activationTokenExp;
+    }
+
+    public function setActivationTokenExp(?int $activationTokenExp): self
+    {
+        $this->activationTokenExp = $activationTokenExp;
+
+        return $this;
+    }
+
+    public function getEmailVerificationTokenExp(): ?int
+    {
+        return $this->emailVerificationTokenExp;
+    }
+
+    public function setEmailVerificationTokenExp(?int $emailVerificationTokenExp): self
+    {
+        $this->emailVerificationTokenExp = $emailVerificationTokenExp;
 
         return $this;
     }
