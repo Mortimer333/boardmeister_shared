@@ -45,6 +45,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $whenActivated = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $newEmail = null;
+
+    #[ORM\Column(length: 32, nullable: true)]
+    private ?string $emailVerificationToken = null;
+
     public function __construct()
     {
         $this->setCreated(time());
@@ -185,6 +191,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setWhenActivated(?int $whenActivated): self
     {
         $this->whenActivated = $whenActivated;
+
+        return $this;
+    }
+
+    public function getNewEmail(): ?string
+    {
+        return $this->newEmail;
+    }
+
+    public function setNewEmail(?string $newEmail): self
+    {
+        $this->newEmail = $newEmail;
+
+        return $this;
+    }
+
+    public function getEmailVerificationToken(): ?string
+    {
+        return $this->emailVerificationToken;
+    }
+
+    public function setEmailVerificationToken(?string $emailVerificationToken): self
+    {
+        $this->emailVerificationToken = $emailVerificationToken;
 
         return $this;
     }

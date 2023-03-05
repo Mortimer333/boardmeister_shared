@@ -164,4 +164,11 @@ class UserService
         $this->em->persist($userData);
         $this->em->flush();
     }
+
+    public function updateEmail(User $user, ?string $email): void
+    {
+        $user->setNewEmail($email);
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }
