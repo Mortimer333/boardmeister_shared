@@ -62,6 +62,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function findUniqueEmail(string $email): ?User
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb->where(
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('u.newEmail', ':email'),
+                        $qb->expr()->gte('u.emailVerificationTokenExp', time()),
+                    ),
+                    $qb->expr()->eq('u.email', ':email')
+                )
+            )->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Admin[] Returns an array of User objects
 //     */

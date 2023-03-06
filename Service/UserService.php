@@ -171,4 +171,23 @@ class UserService
         $this->em->persist($user);
         $this->em->flush();
     }
+
+    public function verifyNewEmail(int $userId, string $token): void
+    {
+        $user = $this->get($userId);
+        if ($user->getEmailVerificationTokenExp() < time()) {
+            throw new \Exception('Token has expired', 400);
+        }
+
+        if ($user->getEmailVerificationToken() !== $token) {
+            throw new \Exception("Token didn't match", 403);
+        }
+
+        $user->setEmail($user->getNewEmail());
+        $user->setNewEmail(null);
+        $user->setEmailVerificationToken(null);
+        $user->setEmailVerificationTokenExp(null);
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }
