@@ -165,9 +165,21 @@ class UserService
         $this->em->flush();
     }
 
-    public function updateEmail(User $user, ?string $email): void
+    public function updateNewEmail(User $user, ?string $email): void
     {
         $user->setNewEmail($email);
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    public function updateNewPassword(User $user, ?string $password): void
+    {
+        if (is_null($password)) {
+            $user->setNewPassword(null);
+        } else {
+            $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
+            $user->setNewPassword($hashedPassword);
+        }
         $this->em->persist($user);
         $this->em->flush();
     }
@@ -175,6 +187,10 @@ class UserService
     public function verifyNewEmail(int $userId, string $token): void
     {
         $user = $this->get($userId);
+        if (empty($user->getEmailVerificationToken())) {
+            throw new \Exception('No change request was created', 400);
+        }
+
         if ($user->getEmailVerificationTokenExp() < time()) {
             throw new \Exception('Token has expired', 400);
         }
@@ -191,6 +207,34 @@ class UserService
         $user->setNewEmail(null);
         $user->setEmailVerificationToken(null);
         $user->setEmailVerificationTokenExp(null);
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    public function verifyNewPassword(int $userId, string $token): void
+    {
+        $user = $this->get($userId);
+        if (empty($user->getPasswordVerificationToken())) {
+            throw new \Exception('No change request was created', 400);
+        }
+
+        if ($user->getPasswordVerificationTokenExp() < time()) {
+            throw new \Exception('Token has expired', 400);
+        }
+
+        if ($user->getPasswordVerificationToken() !== $token) {
+            throw new \Exception("Token didn't match", 403);
+        }
+
+        // Just double-checking if we are not setting empty password by mistake
+        if (empty($user->getNewPassword())) {
+            throw new \Exception("New password is empty", 500);
+        }
+
+        $user->setPassword($user->getNewPassword());
+        $user->setNewPassword(null);
+        $user->setPasswordVerificationToken(null);
+        $user->setPasswordVerificationTokenExp(null);
         $this->em->persist($user);
         $this->em->flush();
     }

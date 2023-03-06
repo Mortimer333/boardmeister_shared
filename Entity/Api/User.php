@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $passwordVerifyTokenExp = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $newPassword = null;
+
     public function __construct()
     {
         $this->setCreated(time());
@@ -255,26 +258,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPasswordVerifyToken(): ?string
+    public function getPasswordVerificationToken(): ?string
     {
         return $this->passwordVerifyToken;
     }
 
-    public function setPasswordVerifyToken(?string $passwordVerifyToken): self
+    public function setPasswordVerificationToken(?string $passwordVerifyToken): self
     {
         $this->passwordVerifyToken = $passwordVerifyToken;
 
         return $this;
     }
 
-    public function getPasswordVerifyTokenExp(): ?int
+    public function getPasswordVerificationTokenExp(): ?int
     {
         return $this->passwordVerifyTokenExp;
     }
 
-    public function setPasswordVerifyTokenExp(?int $passwordVerifyTokenExp): self
+    public function setPasswordVerificationTokenExp(?int $passwordVerifyTokenExp): self
     {
         $this->passwordVerifyTokenExp = $passwordVerifyTokenExp;
+
+        return $this;
+    }
+
+    public function getNewPassword(): ?string
+    {
+        return $this->newPassword;
+    }
+
+    public function setNewPassword(?string $newPassword): self
+    {
+        $this->newPassword = $newPassword;
 
         return $this;
     }
