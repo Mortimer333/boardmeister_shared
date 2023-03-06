@@ -183,6 +183,10 @@ class UserService
             throw new \Exception("Token didn't match", 403);
         }
 
+        if (null === $user->getNewEmail()) {
+            throw new \Exception('There is no new email to set', 500);
+        }
+
         $user->setEmail($user->getNewEmail());
         $user->setNewEmail(null);
         $user->setEmailVerificationToken(null);
