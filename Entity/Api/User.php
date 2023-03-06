@@ -58,10 +58,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $emailVerificationTokenExp = null;
 
     #[ORM\Column(length: 64, nullable: true)]
-    private ?string $passwordVerifyToken = null;
+    private ?string $passwordVerificationToken = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $passwordVerifyTokenExp = null;
+    private ?int $passwordVerificationTokenExp = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $newPassword = null;
@@ -260,24 +260,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPasswordVerificationToken(): ?string
     {
-        return $this->passwordVerifyToken;
+        return $this->passwordVerificationToken;
     }
 
-    public function setPasswordVerificationToken(?string $passwordVerifyToken): self
+    public function setPasswordVerificationToken(?string $passwordVerificationToken): self
     {
-        $this->passwordVerifyToken = $passwordVerifyToken;
+        $this->passwordVerificationToken = $passwordVerificationToken;
 
         return $this;
     }
 
     public function getPasswordVerificationTokenExp(): ?int
     {
-        return $this->passwordVerifyTokenExp;
+        return $this->passwordVerificationTokenExp;
     }
 
-    public function setPasswordVerificationTokenExp(?int $passwordVerifyTokenExp): self
+    public function setPasswordVerificationTokenExp(?int $passwordVerificationTokenExp): self
     {
-        $this->passwordVerifyTokenExp = $passwordVerifyTokenExp;
+        $this->passwordVerificationTokenExp = $passwordVerificationTokenExp;
 
         return $this;
     }
