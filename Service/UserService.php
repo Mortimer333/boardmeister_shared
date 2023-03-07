@@ -172,7 +172,7 @@ class UserService
         $this->em->flush();
     }
 
-    public function updateNewPassword(User $user, ?string $password): void
+    public function updateNewPassword(User $user, #[SensitiveParameter] ?string $password): void
     {
         if (is_null($password)) {
             $user->setNewPassword(null);
@@ -184,7 +184,7 @@ class UserService
         $this->em->flush();
     }
 
-    public function verifyNewEmail(int $userId, string $token): void
+    public function verifyNewEmail(int $userId, #[SensitiveParameter] string $token): void
     {
         $user = $this->get($userId);
         if (empty($user->getEmailVerificationToken())) {
@@ -211,7 +211,7 @@ class UserService
         $this->em->flush();
     }
 
-    public function verifyNewPassword(int $userId, string $token): void
+    public function verifyNewPassword(int $userId, #[SensitiveParameter] string $token): void
     {
         $user = $this->get($userId);
         if (empty($user->getPasswordVerificationToken())) {
@@ -235,6 +235,30 @@ class UserService
         $user->setNewPassword(null);
         $user->setPasswordVerificationToken(null);
         $user->setPasswordVerificationTokenExp(null);
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    public function verifyResetPasswordToken(#[SensitiveParameter] string $token): User
+    {
+        $user = $this->em->getRepository(User::class)->findOneBy(['passwordResetVerificationToken' => $token]);
+        if (!$user) {
+            throw new \Exception('Invalid token', 403);
+        }
+
+        if ($user->getPasswordResetVerificationTokenExp() < time()) {
+            throw new \Exception('Token has expired', 400);
+        }
+
+        return $user;
+    }
+
+    public function resetPassword(User $user, #[SensitiveParameter] string $password): void
+    {
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
+        $user->setPassword($hashedPassword);
+        $user->setPasswordResetVerificationTokenExp(null);
+        $user->setPasswordResetVerificationToken(null);
         $this->em->persist($user);
         $this->em->flush();
     }
