@@ -228,7 +228,7 @@ class UserService
 
         // Just double-checking if we are not setting empty password by mistake
         if (empty($user->getNewPassword())) {
-            throw new \Exception("New password is empty", 500);
+            throw new \Exception('New password is empty', 500);
         }
 
         $user->setPassword($user->getNewPassword());

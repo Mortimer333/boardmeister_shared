@@ -72,12 +72,13 @@ class BinUtilService
         $token = $this->generateToken($length);
         $idLen = strlen($id);
         $idRand = rand(0, $idLen);
-        $outHexScope = ['g','h','u','j','k','l'];
+        $outHexScope = ['g', 'h', 'u', 'j', 'k', 'l'];
         $randLetter = $outHexScope[rand(0, count($outHexScope) - 1)];
         // Adding char outside hex scope to avoid generation matching our id in other tokens
         $id = substr($id, 0, $idRand) . $randLetter . substr($id, $idRand);
         $idLen = strlen($id);
         $rand = rand(0, strlen($token) - $idLen);
+
         return substr($token, 0, $rand) . $id . substr($token, $rand + $idLen);
     }
 
