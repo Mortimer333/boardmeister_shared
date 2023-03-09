@@ -21,7 +21,7 @@ class Choice
     #[ORM\Column(nullable: true)]
     private ?int $userId = null;
 
-    private ?User $user;
+    private ?User $user = null;
 
     public function getId(): ?int
     {

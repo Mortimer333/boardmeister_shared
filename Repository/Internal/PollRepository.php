@@ -6,6 +6,7 @@ use App\Service\ValidationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Shared\Entity\Internal\Poll;
+use Shared\Entity\Internal\Poll\Choice;
 use Shared\Trait\PaginationTrait;
 
 /**
@@ -45,7 +46,7 @@ class PollRepository extends ServiceEntityRepository
         }
     }
 
-    public function findChoice(Poll $poll, string $ip): ?\Shared\Entity\Internal\Poll\Choice
+    public function findChoice(Poll $poll, int $userId): ?Choice
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -55,8 +56,8 @@ class PollRepository extends ServiceEntityRepository
             ->setParameter('id', $poll->getId())
             ->innerJoin('p.options', 'o')
             ->innerJoin('o.choices', 'c')
-            ->andWhere('c.ip = :ip')
-            ->setParameter('ip', $ip)
+            ->andWhere('c.userId = :userId')
+            ->setParameter('userId', $userId)
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -65,7 +66,7 @@ class PollRepository extends ServiceEntityRepository
             return null;
         }
 
-        return $em->getRepository(\Shared\Entity\Internal\Poll\Choice::class)->find($result['id']);
+        return $em->getRepository(Choice::class)->find($result['id']);
     }
 
 //    /**

@@ -72,16 +72,13 @@ class ChoiceService
         $this->em->persist($option);
         $this->em->flush();
 
-        return $choiceEntity;
+        return $this->get($choiceEntity->getId());
     }
 
     public function update(int $optionId, int $choiceId): Choice
     {
         /** @var Choice $choice */
-        $choice = $this->em->getRepository(Choice::class)->find($choiceId);
-        if (!$choice) {
-            throw new \Exception("Chosen choice doesn't exist", 400);
-        }
+        $choice = $this->get($choiceId);
 
         /** @var Option $option */
         $option = $this->em->getRepository(Option::class)->find($optionId);
