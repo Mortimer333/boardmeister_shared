@@ -6,7 +6,7 @@ namespace Shared\Model\Response\Diary\Poll;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as SWG;
-use Shared\Model\Definition\Poll\ChoiceNoIpEntityDTO;
+use Shared\Model\Definition\Poll\ChoiceEntityDTO;
 
 class ChoiceCreateResponse
 {
@@ -17,7 +17,7 @@ class ChoiceCreateResponse
      * @var array<string> $data
      */
     #[SWG\Property(type: 'object', properties: [
-        new SWG\Property(property: 'choice', ref: new Model(type: ChoiceNoIpEntityDTO::class)),
+        new SWG\Property(property: 'choice', ref: new Model(type: ChoiceEntityDTO::class)),
     ])]
     public array $data;
 }

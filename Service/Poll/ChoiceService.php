@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Shared\Service\Poll;
 
+use App\Service\UserService;
 use Shared\Entity\Internal\Poll\Choice;
 use Shared\Entity\Internal\Poll\Option;
 
 class ChoiceService
 {
+    protected UserService $userService;
+
     /**
      * @return array<Choice>
      */
@@ -24,23 +27,40 @@ class ChoiceService
             throw new \Exception('Choice with provided ID doesn\'t exist', 400);
         }
 
+        $userId = $choice->getUserId();
+        if ($userId) {
+            try {
+                $choice->setUser($this->userService->get($userId));
+            } catch (\Exception) {
+                // do nothing
+            }
+        }
+
         return $choice;
     }
 
     /**
-     * @return array<string, int|string>
+     * @return array<string, int|string|array<string, mixed>|null>
      */
     public function serialize(Choice $choice): array
     {
-        return [
+        $serialized = [
             'id' => $choice->getId(),
             'optionId' => $choice->getOption()->getId(),
+            'user' => null,
         ];
+
+        if ($choice->getUser()) {
+            $serialized['user'] = $this->userService->serialize($choice->getUser());
+        }
+
+        return $serialized;
     }
 
-    public function create(int $optionId): Choice
+    public function create(int $optionId, int $userId): Choice
     {
         $choiceEntity = new Choice();
+        $choiceEntity->setUserId($userId);
 
         /** @var Option $option */
         $option = $this->em->getRepository(Option::class)->find($optionId);

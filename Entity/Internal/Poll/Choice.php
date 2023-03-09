@@ -3,6 +3,7 @@
 namespace Shared\Entity\Internal\Poll;
 
 use Doctrine\ORM\Mapping as ORM;
+use Shared\Entity\Api\User;
 
 #[ORM\Entity(repositoryClass: \Shared\Repository\Internal\Poll\ChoiceRepository::class)]
 #[ORM\Table(name: 'poll_choice')]
@@ -17,21 +18,14 @@ class Choice
     #[ORM\JoinColumn(nullable: false)]
     private ?Option $option = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $userId = null;
+
+    private ?User $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIp(): ?string
-    {
-        return $this->ip;
-    }
-
-    public function setIp(string $ip): self
-    {
-        $this->ip = $ip;
-
-        return $this;
     }
 
     public function getOption(): ?Option
@@ -42,6 +36,30 @@ class Choice
     public function setOption(?Option $option): self
     {
         $this->option = $option;
+
+        return $this;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?int $userId): self
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
