@@ -28,6 +28,14 @@ class UserData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $oldName = null;
 
+    #[ORM\Column]
+    private ?bool $sendNewsletter = null;
+
+    public function __construct()
+    {
+        $this->setSendNewsletter(false);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +85,18 @@ class UserData
     public function setOldName(?string $oldName): self
     {
         $this->oldName = $oldName;
+
+        return $this;
+    }
+
+    public function shouldSendNewsletter(): ?bool
+    {
+        return $this->sendNewsletter;
+    }
+
+    public function setSendNewsletter(bool $sendNewsletter): self
+    {
+        $this->sendNewsletter = $sendNewsletter;
 
         return $this;
     }

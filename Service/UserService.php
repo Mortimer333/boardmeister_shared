@@ -58,6 +58,7 @@ class UserService
         return [
             'id' => $data->getId(),
             'name' => $data->getName(),
+            'sendNewsletter' => $data->shouldSendNewsletter(),
         ];
     }
 
@@ -157,9 +158,18 @@ class UserService
             throw new \Exception('User data got detached, contact administrator', 500);
         }
 
-        /** @var string $username */
-        $username = $data['username'] ?? throw new \Exception('Missing username', 500);
-        $userData->setName($username);
+        $fields = [
+            'username' => 'setName',
+            'sendNewsletter' => 'setSendNewsletter',
+        ];
+
+        foreach ($fields as $key => $setter) {
+            if (!isset($data[$key])) {
+                continue;
+            }
+
+            $userData->$setter($data[$key]);
+        }
 
         $this->em->persist($userData);
         $this->em->flush();
