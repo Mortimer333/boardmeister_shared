@@ -67,16 +67,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $this->createQueryBuilder('u');
 
         return $qb->where(
-            $qb->expr()->orX(
-                $qb->expr()->andX(
-                    $qb->expr()->eq('u.newEmail', ':email'),
-                    $qb->expr()->gte('u.emailVerificationTokenExp', time()),
-                ),
-                $qb->expr()->eq('u.email', ':email')
-            )
-        )->setParameter('email', $email)
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('u.newEmail', ':email'),
+                        $qb->expr()->gte('u.emailVerificationTokenExp', time()),
+                    ),
+                    $qb->expr()->eq('u.email', ':email')
+                )
+            )->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findUsersSubscribedToNewsletter(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.data', 'd')
+            ->where('d.sendNewsletter = 1')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**
