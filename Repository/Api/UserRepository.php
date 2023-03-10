@@ -22,6 +22,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     use PaginationTrait;
+    public const ALL = 'all';
+    public const ACTIVE = 'active';
+    public const NOT_VALIDATED = 'not_validated';
+    public const DEACTIVATED = 'deactivated';
 
     public function __construct(
         protected ValidationService $validationService,
@@ -86,6 +90,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('d.sendNewsletter = 1')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function getUsersCount(string $type = self::ALL, ?int $from = null, ?int $to): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+        ;
+
+        if ($type !== self::ALL) {
+            match($type) {
+                self::ACTIVE => $qb->where('u.activated = 1'),
+                self::NOT_VALIDATED => $qb->where('u.activated = 0')->andWhere('u.activationToken IS NOT NULL'),
+                self::DEACTIVATED => $qb->where('u.activated = 0')->andWhere('u.activationToken IS NULL'),
+                default => null,
+            };
+        }
+
+        if ($from) {
+            $qb->andWhere('u.created >= :from')->setParameter('from', $from);
+        }
+
+        if ($to) {
+            $qb->andWhere('u.created <= :to')->setParameter('to', $to);
+        }
+
+        return $qb->getQuery()
+            ->getSingleScalarResult()
         ;
     }
 
